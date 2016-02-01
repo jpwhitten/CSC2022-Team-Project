@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class DirectionFragment extends Fragment {
@@ -59,6 +60,15 @@ public class DirectionFragment extends Fragment {
         TextView byBusDescription =(TextView) view.findViewById(R.id.by_bus_description);
         byBusDescription.setText(byBusDescriptionText);
 
+
+        RelativeLayout mapLayout = (RelativeLayout) view.findViewById(R.id.map_btn);
+        mapLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showMap();
+            }
+        });
+
         RelativeLayout emailLayout = (RelativeLayout) view.findViewById(R.id.email_btn);
         emailLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +89,17 @@ public class DirectionFragment extends Fragment {
 
     }
 
+    private void showMap(){
+        //https://developers.google.com/maps/documentation/android-api/intents#launch_turn-by-turn_navigation
+        Uri gmmIntentUri = Uri.parse("geo:0,0?q=Tanfield+Railway,+The+Engine+Shed,+Newcastle+upon+Tyne+NE16+5ET,+United+Kingdom");
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        if(mapIntent.resolveActivity(getContext().getPackageManager()) != null){
+            startActivity(mapIntent);
+        }else{
+            Toast.makeText(getActivity(), "A suitable application could not be found", Toast.LENGTH_SHORT).show();
+        }
+
+    }
     private void sendEmail(){
         //https://stackoverflow.com/questions/2197741/how-can-i-send-emails-from-my-android-application
         Intent intent = new Intent(Intent.ACTION_SENDTO); // it's not ACTION_SEND
