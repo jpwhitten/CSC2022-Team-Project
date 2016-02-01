@@ -1,10 +1,12 @@
 package teamone.tanfieldrailway;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,7 @@ import android.widget.TextView;
 
 
 public class DirectionFragment extends Fragment {
-
+    private static final int PHONE_PERMISSION_REQUEST = 5;
 
     public DirectionFragment() {
         // Required empty public constructor
@@ -57,8 +59,42 @@ public class DirectionFragment extends Fragment {
         TextView byBusDescription =(TextView) view.findViewById(R.id.by_bus_description);
         byBusDescription.setText(byBusDescriptionText);
 
+        RelativeLayout phoneLayout = (RelativeLayout) view.findViewById(R.id.phone_btn);
+        phoneLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setupCallPermissions();
+            }
+        });
         // Inflate the layout for this fragment
         return view;
 
+    }
+
+    private void setupCallPermissions(){
+        String permissionString = "android.permission.CALL_PHONE";
+        if (ContextCompat.checkSelfPermission(getActivity(), permissionString) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{permissionString}, PHONE_PERMISSION_REQUEST);
+        }else{
+            makeCall();
+        }
+    }
+
+    private void makeCall(){
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        intent.setData(Uri.parse("tel:07508092365"));
+        startActivity(intent);
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PHONE_PERMISSION_REQUEST: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    makeCall();
+                } else {
+                    //User has actively refused the permission. TODO: Show them a message?
+                }
+            }
+        }
     }
 }
