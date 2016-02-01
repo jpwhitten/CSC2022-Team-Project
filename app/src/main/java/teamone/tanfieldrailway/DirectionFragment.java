@@ -59,6 +59,14 @@ public class DirectionFragment extends Fragment {
         TextView byBusDescription =(TextView) view.findViewById(R.id.by_bus_description);
         byBusDescription.setText(byBusDescriptionText);
 
+        RelativeLayout emailLayout = (RelativeLayout) view.findViewById(R.id.email_btn);
+        emailLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendEmail();
+            }
+        });
+
         RelativeLayout phoneLayout = (RelativeLayout) view.findViewById(R.id.phone_btn);
         phoneLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +77,15 @@ public class DirectionFragment extends Fragment {
         // Inflate the layout for this fragment
         return view;
 
+    }
+
+    private void sendEmail(){
+        //https://stackoverflow.com/questions/2197741/how-can-i-send-emails-from-my-android-application
+        Intent intent = new Intent(Intent.ACTION_SENDTO); // it's not ACTION_SEND
+        intent.setType("message/rfc822");
+        intent.setData(Uri.parse("mailto:info@tanfield-railway.co.uk")); // or just "mailto:" for blank
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // this will make such that when user returns to your app, your app is displayed, instead of the email app.
+        startActivity(intent);
     }
 
     private void setupCallPermissions(){
