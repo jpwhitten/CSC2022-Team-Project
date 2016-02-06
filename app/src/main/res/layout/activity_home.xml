@@ -15,10 +15,382 @@
     <android.support.design.widget.NavigationView android:id="@+id/nav_view"
         android:layout_width="225dp" android:layout_height="match_parent"
         android:layout_gravity="start" android:fitsSystemWindows="true"
-        app:menu="@menu/activity_home_drawer"
         app:itemTextColor="@color/colorWhite"
         app:itemIconTint="@color/colorWhite"
         android:background="#DD000000"
-        />
+        >
+
+        <ScrollView android:id="@+id/nav_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <RelativeLayout android:id="@+id/nav_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:onClick="onNavClick">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_home"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Home"
+                        android:textSize="15sp"
+                        android:textColor="@color/colorWhite"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="50dp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout android:id="@+id/nav_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:onClick="onNavClick">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_history"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="History"
+                        android:textSize="15sp"
+                        android:textColor="@color/colorWhite"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="50dp"/>
+
+                </RelativeLayout>
+
+                <LinearLayout android:id="@+id/nav_history_submenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:orientation="vertical"
+                    android:animateLayoutChanges="true">
+
+                    <RelativeLayout android:id="@+id/nav_timeline"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="◘     Timeline"
+                            android:textSize="12sp"
+                            android:textColor="@color/colorWhite"
+                            android:layout_marginLeft="80dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout android:id="@+id/nav_trains"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="◘     Trains"
+                            android:textSize="12sp"
+                            android:textColor="@color/colorWhite"
+                            android:layout_marginLeft="80dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout android:id="@+id/nav_carriages"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="◘     Carriages"
+                            android:textSize="12sp"
+                            android:textColor="@color/colorWhite"
+                            android:layout_marginLeft="80dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"/>
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <RelativeLayout android:id="@+id/nav_events"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:onClick="onNavClick">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_events"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Events"
+                        android:textSize="15sp"
+                        android:textColor="@color/colorWhite"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="50dp"/>
+
+                </RelativeLayout>
+
+                <LinearLayout android:id="@+id/nav_events_submenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout android:id="@+id/nav_daily_events"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:onClick="onNavClick">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="◘     Daily Events"
+                            android:textSize="12sp"
+                            android:textColor="@color/colorWhite"
+                            android:layout_marginLeft="80dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout android:id="@+id/nav_special_events"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:onClick="onNavClick">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="◘     Special Events"
+                            android:textSize="12sp"
+                            android:textColor="@color/colorWhite"
+                            android:layout_marginLeft="80dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"/>
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+
+
+                <RelativeLayout android:id="@+id/nav_map"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:onClick="onNavClick">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_map"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Map"
+                        android:textSize="15sp"
+                        android:textColor="@color/colorWhite"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="50dp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout android:id="@+id/nav_live_journey"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:onClick="onNavClick">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_livejourney"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Live hourney"
+                        android:textSize="15sp"
+                        android:textColor="@color/colorWhite"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="50dp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout android:id="@+id/nav_kids"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:onClick="onNavClick">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_kids"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kids"
+                        android:textSize="15sp"
+                        android:textColor="@color/colorWhite"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="50dp"/>
+
+                </RelativeLayout>
+
+                <LinearLayout android:id="@+id/nav_kids_submenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout android:id="@+id/nav_quiz"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:onClick="onNavClick">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="◘     Quiz"
+                            android:textSize="12sp"
+                            android:textColor="@color/colorWhite"
+                            android:layout_marginLeft="80dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout android:id="@+id/nav_treasure_hunt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:onClick="onNavClick">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="◘     Trasure Hunt"
+                            android:textSize="12sp"
+                            android:textColor="@color/colorWhite"
+                            android:layout_marginLeft="80dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"/>
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+
+
+                <RelativeLayout android:id="@+id/nav_walking_routes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:onClick="onNavClick">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_walkingroutes"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Walking Routes"
+                        android:textSize="15sp"
+                        android:textColor="@color/colorWhite"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="50dp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout android:id="@+id/nav_directions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:onClick="onNavClick">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_directions"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Directions"
+                        android:textSize="15sp"
+                        android:textColor="@color/colorWhite"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="50dp"/>
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+
+        </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

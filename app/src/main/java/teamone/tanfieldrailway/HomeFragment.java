@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment {
         });
         slideshow.setImageDrawable(transition);
         slideshow.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        transition.startTransition(3000, 10000);
+        transition.startTransition(1500, 10000);
         // Inflate the layout for this fragment
         return view;
 
