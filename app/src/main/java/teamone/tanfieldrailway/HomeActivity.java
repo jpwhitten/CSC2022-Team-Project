@@ -3,6 +3,7 @@ package teamone.tanfieldrailway;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -46,6 +48,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     int NAV_MARGIN_HOME = 450;
     int NAV_MARGIN = 250;
+
+    ImageView historyIndicator;
+    ImageView eventsIndicator;
+    ImageView kidsIndicator;
+
+    AnimationDrawable historyIndicatorAnimation;
+    AnimationDrawable eventsIndicatorAnimation;
+    AnimationDrawable kidsIndicatorAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,11 +103,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         navHome.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
+        historyIndicator = (ImageView) findViewById(R.id.history_indicator);
+        eventsIndicator = (ImageView) findViewById(R.id.events_indicator);
+        kidsIndicator = (ImageView) findViewById(R.id.kids_indicator);
 
+        historyIndicator.setBackgroundResource(R.drawable.nav_indicator_expand);
+        historyIndicatorAnimation = (AnimationDrawable) historyIndicator.getBackground();
+
+        eventsIndicator.setBackgroundResource(R.drawable.nav_indicator_expand);
+        eventsIndicatorAnimation = (AnimationDrawable) eventsIndicator.getBackground();
+
+        kidsIndicator.setBackgroundResource(R.drawable.nav_indicator_expand);
+        kidsIndicatorAnimation = (AnimationDrawable) kidsIndicator.getBackground();
     }
 
     public void onNavClick(View v) {
-
 
         Boolean shouldClose = true;
         Boolean isHome = false;
@@ -133,13 +153,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             if(isHistoryCollapsed){
                 expand(submenuHistory);
                 isHistoryCollapsed = false;
+                historyIndicator.setBackgroundResource(R.drawable.nav_indicator_expand);
+                historyIndicatorAnimation = (AnimationDrawable) historyIndicator.getBackground();
+                historyIndicatorAnimation.start();
 
-                //collapseEvents();
-                //collapseKids();
+
+                collapseEvents();
+                collapseKids();
 
             } else {
-                collapse(submenuHistory);
-                isHistoryCollapsed = true;
+                collapseHistory();
             }
 
         } else if (id == R.id.nav_timeline) {
@@ -169,13 +192,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             if(isEventsCollapsed){
                 expand(submenuEvents);
                 isEventsCollapsed = false;
+                eventsIndicator.setBackgroundResource(R.drawable.nav_indicator_expand);
+                eventsIndicatorAnimation = (AnimationDrawable) eventsIndicator.getBackground();
+                eventsIndicatorAnimation.start();
 
-                //collapseHistory();
-                //collapseKids();
+                collapseHistory();
+                collapseKids();
 
             } else {
-                collapse(submenuEvents);
-                isEventsCollapsed = true;
+                collapseEvents();
             }
 
         } else if (id == R.id.nav_daily_events) {
@@ -210,13 +235,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             if(isKidsCollapsed){
                 expand(submenuKids);
                 isKidsCollapsed = false;
+                kidsIndicator.setBackgroundResource(R.drawable.nav_indicator_expand);
+                kidsIndicatorAnimation = (AnimationDrawable) kidsIndicator.getBackground();
+                kidsIndicatorAnimation.start();
 
-                //collapseHistory();
-                //collapseEvents();
+                collapseHistory();
+                collapseEvents();
 
             } else {
-                collapse(submenuKids);
-                isKidsCollapsed = true;
+                collapseKids();
             }
 
         } else if (id == R.id.nav_quiz) {
@@ -308,6 +335,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if(!isHistoryCollapsed) {
             collapse(submenuHistory);
             isHistoryCollapsed = true;
+            historyIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
+            historyIndicatorAnimation = (AnimationDrawable) historyIndicator.getBackground();
+            historyIndicatorAnimation.start();
         }
 
     }
@@ -316,6 +346,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if(!isEventsCollapsed) {
             collapse(submenuEvents);
             isEventsCollapsed = true;
+            eventsIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
+            eventsIndicatorAnimation = (AnimationDrawable) eventsIndicator.getBackground();
+            eventsIndicatorAnimation.start();
         }
     }
 
@@ -323,6 +356,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if(!isKidsCollapsed) {
             collapse(submenuKids);
             isKidsCollapsed = true;
+            kidsIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
+            kidsIndicatorAnimation = (AnimationDrawable) kidsIndicator.getBackground();
+            kidsIndicatorAnimation.start();
         }
     }
 
@@ -352,6 +388,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         // 1dp/ms
         a.setDuration((int) (targetHeight / v.getContext().getResources().getDisplayMetrics().density));
         v.startAnimation(a);
+
+        int id = v.getId();
     }
 
     public static void collapse(final View v) {

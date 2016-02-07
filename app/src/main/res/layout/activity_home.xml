@@ -81,6 +81,12 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="50dp"/>
 
+                    <ImageView android:id="@+id/history_indicator"
+                        android:layout_width="20dp"
+                        android:layout_height="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="160dp" />
+
                 </RelativeLayout>
 
                 <LinearLayout android:id="@+id/nav_history_submenu"
@@ -166,6 +172,12 @@
                         android:textColor="@color/colorWhite"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="50dp"/>
+
+                    <ImageView android:id="@+id/events_indicator"
+                        android:layout_width="20dp"
+                        android:layout_height="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="160dp"/>
 
                 </RelativeLayout>
 
@@ -288,6 +300,13 @@
                         android:textColor="@color/colorWhite"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="50dp"/>
+
+                    <ImageView android:id="@+id/kids_indicator"
+                        android:layout_width="20dp"
+                        android:layout_height="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="160dp"
+                        android:scaleType="fitXY"/>
 
                 </RelativeLayout>
 
