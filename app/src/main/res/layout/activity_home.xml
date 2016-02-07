@@ -91,7 +91,8 @@
 
                     <RelativeLayout android:id="@+id/nav_timeline"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:onClick="onNavClick">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -107,7 +108,8 @@
 
                     <RelativeLayout android:id="@+id/nav_trains"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:onClick="onNavClick">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -123,7 +125,8 @@
 
                     <RelativeLayout android:id="@+id/nav_carriages"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:onClick="onNavClick">
 
                         <TextView
                             android:layout_width="match_parent"

@@ -109,7 +109,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             isHome = true;
 
             setMenuColors();
-            navHome.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            selectMenuItem(v, false);
 
             ScrollView sv = (ScrollView)findViewById(R.id.nav_menu);
 
@@ -142,6 +142,27 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 isHistoryCollapsed = true;
             }
 
+        } else if (id == R.id.nav_timeline) {
+
+            setMenuColors();
+            selectMenuItem(navHistory, false);
+            selectMenuItem(submenuHistory, true);
+            setTitle("Timeline");
+
+        } else if (id == R.id.nav_carriages) {
+
+            setMenuColors();
+            selectMenuItem(navHistory, false);
+            selectMenuItem(submenuHistory, true);
+            setTitle("Carriages");
+
+        } else if (id == R.id.nav_trains) {
+
+            setMenuColors();
+            selectMenuItem(navHistory, false);
+            selectMenuItem(submenuHistory, true);
+            setTitle("Trains");
+
         } else if (id == R.id.nav_events) {
 
             shouldClose = false;
@@ -156,15 +177,32 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 collapse(submenuEvents);
                 isEventsCollapsed = true;
             }
+
+        } else if (id == R.id.nav_daily_events) {
+
+            setMenuColors();
+            selectMenuItem(navEvents, false);
+            selectMenuItem(submenuEvents, true);
+            setTitle("Daily Events");
+
+        } else if (id == R.id.nav_special_events) {
+
+            setMenuColors();
+            selectMenuItem(navEvents, false);
+            selectMenuItem(submenuEvents, true);
+            setTitle("Special Events");
+
         } else if (id == R.id.nav_map) {
 
             setMenuColors();
-            navMap.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            selectMenuItem(v, false);
+            setTitle("Map");
 
         } else if (id == R.id.nav_live_journey) {
 
             setMenuColors();
-            navLiveJourney.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            selectMenuItem(v, false);
+            setTitle("Live Journey");
 
         } else if (id == R.id.nav_kids) {
 
@@ -184,22 +222,33 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_quiz) {
 
             setMenuColors();
-            navKids.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            submenuKids.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+            selectMenuItem(navKids, false);
+            selectMenuItem(submenuKids, true);
 
             QuizFragment fragment = new QuizFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
-            setTitle("Kids");
+            setTitle("Quiz");
+
+        } else if (id == R.id.nav_treasure_hunt) {
+
+            setMenuColors();
+            selectMenuItem(navKids, false);
+            selectMenuItem(submenuKids, true);
+            setTitle("Treasure Hunt");
 
         } else if (id == R.id.nav_walking_routes) {
+
+            setMenuColors();
+            selectMenuItem(v, false);
+            setTitle("Walking Routes");
 
         } else if (id == R.id.nav_directions) {
 
             setMenuColors();
-            navDirections.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            selectMenuItem(v, false);
 
             DirectionFragment fragment = new DirectionFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
@@ -243,6 +292,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         submenuEvents.setBackgroundColor(Color.parseColor("#DD000000"));
         submenuHistory.setBackgroundColor(Color.parseColor("#DD000000"));
         submenuKids.setBackgroundColor(Color.parseColor("#DD000000"));
+    }
+
+
+    private void selectMenuItem(View menu, Boolean isSub) {
+
+        if(isSub)
+            menu.setBackgroundColor(getResources()
+            .getColor(R.color.colorPrimaryDark));
+        else
+            menu.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
     }
 
     private void collapseHistory() {
