@@ -57,6 +57,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     AnimationDrawable eventsIndicatorAnimation;
     AnimationDrawable kidsIndicatorAnimation;
 
+    DrawerLayout drawer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,14 +109,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         eventsIndicator = (ImageView) findViewById(R.id.events_indicator);
         kidsIndicator = (ImageView) findViewById(R.id.kids_indicator);
 
-        historyIndicator.setBackgroundResource(R.drawable.nav_indicator_expand);
-        historyIndicatorAnimation = (AnimationDrawable) historyIndicator.getBackground();
-
-        eventsIndicator.setBackgroundResource(R.drawable.nav_indicator_expand);
-        eventsIndicatorAnimation = (AnimationDrawable) eventsIndicator.getBackground();
-
-        kidsIndicator.setBackgroundResource(R.drawable.nav_indicator_expand);
-        kidsIndicatorAnimation = (AnimationDrawable) kidsIndicator.getBackground();
+        historyIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
+        eventsIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
+        kidsIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
     }
 
     public void onNavClick(View v) {
@@ -285,8 +282,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             setTitle("Directions");
 
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         if(shouldClose) {
             drawer.closeDrawer(GravityCompat.START);

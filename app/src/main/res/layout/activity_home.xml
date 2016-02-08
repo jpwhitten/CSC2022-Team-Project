@@ -178,7 +178,6 @@
                         android:layout_height="10dp"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="160dp"/>
-
                 </RelativeLayout>
 
                 <LinearLayout android:id="@+id/nav_events_submenu"
