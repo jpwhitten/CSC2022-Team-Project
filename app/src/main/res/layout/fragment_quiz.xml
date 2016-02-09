@@ -155,7 +155,7 @@
                 android:layout_marginTop="30sp"
                 android:layout_marginBottom="15dp"/>
 
-            <ImageView
+            <ImageView android:id="@+id/quiz_image_image"
                 android:layout_width="250dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"
@@ -263,7 +263,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
+            <TextView android:id="@+id/quiz_end_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -312,10 +312,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="/x"
+                        android:text="/10"
                         android:textColor="@color/colorWhite"
                         android:textSize="15sp"
-                        android:layout_marginTop="140dp"
+                        android:layout_marginTop="145dp"
                         android:layout_marginLeft="10dp"/>
 
                 </RelativeLayout>
@@ -345,11 +345,35 @@
             </RelativeLayout>
 
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/colorBlack"
+                    android:layout_gravity="bottom"/>
+
+                <RelativeLayout android:id="@+id/quiz_progress_bar"
+                    android:layout_width="100dp"
+                    android:layout_height="10dp"
+                    android:background="#00CC00" />
+
+
+            </RelativeLayout>
+
+
 
         </LinearLayout>
 
-
     </RelativeLayout>
-
 
 </FrameLayout>

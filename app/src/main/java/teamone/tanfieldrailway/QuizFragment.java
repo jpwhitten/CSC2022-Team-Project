@@ -1,10 +1,16 @@
 package teamone.tanfieldrailway;
 
+import android.app.ActionBar;
+import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,6 +27,10 @@ public class QuizFragment extends Fragment {
     LinearLayout endLayout;
 
     RelativeLayout startLayoutStartButton;
+    RelativeLayout endLayoutStartButton;
+
+    RelativeLayout progressBar;
+    RelativeLayout.LayoutParams progressBarParams;
 
     RelativeLayout answerOne;
     RelativeLayout answerTwo;
@@ -34,11 +44,31 @@ public class QuizFragment extends Fragment {
     TextView answerThreeText;
     TextView answerFourText;
 
+    RelativeLayout answerOneImage;
+    RelativeLayout answerTwoImage;
+    RelativeLayout answerThreeImage;
+    RelativeLayout answerFourImage;
+
+    TextView questionTextImage;
+
+    TextView answerOneTextImage;
+    TextView answerTwoTextImage;
+    TextView answerThreeTextImage;
+    TextView answerFourTextImage;
+
+    ImageView questionImage;
+
     TextView scoreText;
+
+    TextView message;
 
     QuizManager quizManager;
 
-    ArrayList<Integer> places = new ArrayList<Integer>();
+    float displayWidth;
+
+    float displayWidthIncrement;
+
+    ArrayList<Integer> places = new ArrayList<>();
 
     public QuizFragment() {
         // Required empty public constructor
@@ -55,8 +85,6 @@ public class QuizFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_quiz, container, false);
 
-        quizManager = new QuizManager();
-
         startLayout = (LinearLayout) view.findViewById(R.id.quiz_layout_start);
         questionLayout = (LinearLayout) view.findViewById(R.id.quiz_layout_question);
         questionLayout.setVisibility(View.GONE);
@@ -69,37 +97,66 @@ public class QuizFragment extends Fragment {
 
         startLayoutStartButton = (RelativeLayout) view.findViewById(R.id.quiz_start_button);
 
+        endLayoutStartButton = (RelativeLayout) view.findViewById(R.id.quiz_end_start_button);
+
+
+        quizManager = new QuizManager();
+
+
+        displayWidth = getContext().getResources().getDisplayMetrics().widthPixels ;
+        displayWidthIncrement = displayWidth / quizManager.getMaxQuestions();
+
+        progressBar = (RelativeLayout) view.findViewById(R.id.quiz_progress_bar);
+        progressBarParams = (RelativeLayout.LayoutParams) progressBar.getLayoutParams();
+        progressBarParams.width = 0;
+        progressBar.setLayoutParams(progressBarParams);
+
+
+
         answerOne = (RelativeLayout) view.findViewById(R.id.quiz_question_answer_1);
         answerTwo = (RelativeLayout) view.findViewById(R.id.quiz_question_answer_2);
         answerThree = (RelativeLayout) view.findViewById(R.id.quiz_question_answer_3);
         answerFour = (RelativeLayout) view.findViewById(R.id.quiz_question_answer_4);
 
+        answerOneImage = (RelativeLayout) view.findViewById(R.id.quiz_image_question_answer_1);
+        answerTwoImage = (RelativeLayout) view.findViewById(R.id.quiz_image_question_answer_2);
+        answerThreeImage = (RelativeLayout) view.findViewById(R.id.quiz_image_question_answer_3);
+        answerFourImage = (RelativeLayout) view.findViewById(R.id.quiz_image_question_answer_4);
+
         scoreText = (TextView) view.findViewById(R.id.quiz_final_score);
+
+        message = (TextView) view.findViewById(R.id.quiz_end_message);
+
+        questionText = (TextView) view.findViewById(R.id.quiz_question_text);
+        questionTextImage = (TextView) view.findViewById(R.id.quiz_image_question_text);
 
         startLayoutStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startLayout.setVisibility(View.GONE);
-                questionLayout.setVisibility(View.VISIBLE);
+                quizManager.getNextQuestion();
+                setAnswerPlacesList();
+                setQuestionView();
+            }
+        });
+
+        endLayoutStartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quizManager = new QuizManager();
+                progressBarParams.width = 0;
+                progressBar.setLayoutParams(progressBarParams);
+                setUpQuizEnd();
             }
         });
 
         answerOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(quizManager.getQuestion().hasSelectedCorrectAnswer(answerOneText.getText().toString())) {
+                if (quizManager.getQuestion().hasSelectedCorrectAnswer(answerOneText.getText().toString())) {
                     quizManager.incrementScore();
                 }
-                if(!quizManager.isLastQuestion()) {
-                    quizManager.getNextQuestion();
-                    questionText.setText(quizManager.getQuestion().getQuestionString());
-                    setAnswerPlacesList();
-                    placeAnswers(quizManager.getQuestion());
-                } else {
-                    questionLayout.setVisibility(View.GONE);
-                    endLayout.setVisibility(View.VISIBLE);
-                    scoreText.setText(Integer.toString(quizManager.score));
-                }
+                onAnswerSelect();
             }
         });
 
@@ -109,16 +166,7 @@ public class QuizFragment extends Fragment {
                 if(quizManager.getQuestion().hasSelectedCorrectAnswer(answerTwoText.getText().toString())) {
                     quizManager.incrementScore();
                 }
-                if(!quizManager.isLastQuestion()) {
-                    quizManager.getNextQuestion();
-                    questionText.setText(quizManager.getQuestion().getQuestionString());
-                    setAnswerPlacesList();
-                    placeAnswers(quizManager.getQuestion());
-                } else {
-                    questionLayout.setVisibility(View.GONE);
-                    endLayout.setVisibility(View.VISIBLE);
-                    scoreText.setText(Integer.toString(quizManager.score));
-                }
+                onAnswerSelect();
             }
         });
 
@@ -128,16 +176,7 @@ public class QuizFragment extends Fragment {
                 if(quizManager.getQuestion().hasSelectedCorrectAnswer(answerThreeText.getText().toString())) {
                     quizManager.incrementScore();
                 }
-                if(!quizManager.isLastQuestion()) {
-                    quizManager.getNextQuestion();
-                    questionText.setText(quizManager.getQuestion().getQuestionString());
-                    setAnswerPlacesList();
-                    placeAnswers(quizManager.getQuestion());
-                } else {
-                    questionLayout.setVisibility(View.GONE);
-                    endLayout.setVisibility(View.VISIBLE);
-                    scoreText.setText(Integer.toString(quizManager.score));
-                }
+                onAnswerSelect();
 
             }
         });
@@ -148,29 +187,62 @@ public class QuizFragment extends Fragment {
                 if(quizManager.getQuestion().hasSelectedCorrectAnswer(answerFourText.getText().toString())) {
                     quizManager.incrementScore();
                 }
-                if(!quizManager.isLastQuestion()) {
-                    quizManager.getNextQuestion();
-                    questionText.setText(quizManager.getQuestion().getQuestionString());
-                    setAnswerPlacesList();
-                    placeAnswers(quizManager.getQuestion());
-                } else {
-                    questionLayout.setVisibility(View.GONE);
-                    endLayout.setVisibility(View.VISIBLE);
-                    scoreText.setText(Integer.toString(quizManager.score));
-                }
+                onAnswerSelect();
             }
         });
 
-        questionText = (TextView) view.findViewById(R.id.quiz_question_text);
-        questionText.setText(quizManager.getQuestion().getQuestionString());
+        answerOneImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (quizManager.getCurrentImageQuestion().hasSelectedCorrectAnswer(answerOneTextImage.getText().toString())) {
+                    quizManager.incrementScore();
+                }
+                onAnswerSelect();
+            }
+        });
+
+        answerTwoImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(quizManager.getCurrentImageQuestion().hasSelectedCorrectAnswer(answerTwoTextImage.getText().toString())) {
+                    quizManager.incrementScore();
+                }
+                onAnswerSelect();
+            }
+        });
+
+        answerThreeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (quizManager.getCurrentImageQuestion().hasSelectedCorrectAnswer(answerThreeTextImage.getText().toString())) {
+                    quizManager.incrementScore();
+                }
+                onAnswerSelect();
+
+            }
+        });
+
+        answerFourImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (quizManager.getCurrentImageQuestion().hasSelectedCorrectAnswer(answerFourTextImage.getText().toString())) {
+                    quizManager.incrementScore();
+                }
+                onAnswerSelect();
+            }
+        });
 
         answerOneText = (TextView) view.findViewById(R.id.quiz_question_answer_text_1);
         answerTwoText = (TextView) view.findViewById(R.id.quiz_question_answer_text_2);
         answerThreeText = (TextView) view.findViewById(R.id.quiz_question_answer_text_3);
         answerFourText = (TextView) view.findViewById(R.id.quiz_question_answer_text_4);
 
-        setAnswerPlacesList();
-        placeAnswers(quizManager.getQuestion());
+        answerOneTextImage = (TextView) view.findViewById(R.id.quiz_image_question_answer_text_1);
+        answerTwoTextImage = (TextView) view.findViewById(R.id.quiz_image_question_answer_text_2);
+        answerThreeTextImage = (TextView) view.findViewById(R.id.quiz_image_question_answer_text_3);
+        answerFourTextImage = (TextView) view.findViewById(R.id.quiz_image_question_answer_text_4);
+
+        questionImage = (ImageView) view.findViewById(R.id.quiz_image_image);
 
 
         // Inflate the layout for this fragment
@@ -178,8 +250,62 @@ public class QuizFragment extends Fragment {
 
     }
 
+    private void setUpQuizEnd() {
+        quizManager.getNextQuestion();
+        setAnswerPlacesList();
+        setQuestionView();
+        endLayout.setVisibility(View.GONE);
+    }
+
+    private void setQuestionView() {
+        if(quizManager.getIsImage()) {
+            imageQuestionLayout.setVisibility(View.VISIBLE);
+            placeAnswers(quizManager.getCurrentImageQuestion(), quizManager.getIsImage());
+            questionTextImage.setText(quizManager.getCurrentImageQuestion().getQuestionString());
+            questionImage.setImageResource(quizManager.getCurrentImageQuestion().getImageID());
+        } else {
+            questionLayout.setVisibility(View.VISIBLE);
+            placeAnswers(quizManager.getQuestion(), quizManager.getIsImage());
+            questionText.setText(quizManager.getQuestion().getQuestionString());
+        }
+    }
+
+    private void onAnswerSelect() {
+        if(!quizManager.isLastQuestion()) {
+            quizManager.getNextQuestion();
+            if(!quizManager.getIsImage()) {
+                questionText.setText(quizManager.getQuestion().getQuestionString());
+                setAnswerPlacesList();
+                placeAnswers(quizManager.getQuestion(), quizManager.getIsImage());
+                imageQuestionLayout.setVisibility(View.GONE);
+                questionLayout.setVisibility(View.VISIBLE);
+            } else {
+                questionTextImage.setText(quizManager.getCurrentImageQuestion().getQuestionString());
+                setAnswerPlacesList();
+                placeAnswers(quizManager.getCurrentImageQuestion(), quizManager.getIsImage());
+                questionImage.setImageResource(quizManager.getCurrentImageQuestion().getImageID());
+                questionLayout.setVisibility(View.GONE);
+                imageQuestionLayout.setVisibility(View.VISIBLE);
+            }
+        } else {
+            questionLayout.setVisibility(View.GONE);
+            imageQuestionLayout.setVisibility(View.GONE);
+            endLayout.setVisibility(View.VISIBLE);
+            scoreText.setText(Integer.toString(quizManager.getScore()));
+            if(quizManager.getScore() < 5) {
+                message.setText("Better luck next time!");
+            } else if(quizManager.getScore() < 7) {
+                message.setText("Good");
+            } else {
+                message.setText("YAAAAAAAAAAY!");
+            }
+        }
+        progressBarParams.width += displayWidthIncrement;
+        progressBar.setLayoutParams(progressBarParams);
+    }
+
     public ArrayList<Integer> setAnswerPlacesList() {
-        places = new ArrayList<Integer>();
+        places = new ArrayList<>();
         places.add(1);
         places.add(2);
         places.add(3);
@@ -187,30 +313,51 @@ public class QuizFragment extends Fragment {
         return places;
     }
 
-    public void placeAnswers(Question question) {
+    public void placeAnswers(Question question, Boolean isImage) {
         Random r = new Random();
         for(int i = 0; i < question.getAnswers().length; i++) {
             int rand = r.nextInt(places.size());
             int answerplace = places.get(rand);
             String answer = question.getAnswers()[i];
             places.remove(rand);
-            if(answerplace == 1) {
+            if(isImage) {
+                if(answerplace == 1) {
 
-                answerOneText.setText(answer);
+                    answerOneTextImage.setText(answer);
 
-            } else if (answerplace == 2) {
+                } else if (answerplace == 2) {
 
-                answerTwoText.setText(answer);
+                    answerTwoTextImage.setText(answer);
 
-            } else if (answerplace == 3) {
+                } else if (answerplace == 3) {
 
-                answerThreeText.setText(answer);
+                    answerThreeTextImage.setText(answer);
 
-            } else if (answerplace == 4) {
+                } else if (answerplace == 4) {
 
-                answerFourText.setText(answer);
+                    answerFourTextImage.setText(answer);
 
+                }
+            } else {
+                if(answerplace == 1) {
+
+                    answerOneText.setText(answer);
+
+                } else if (answerplace == 2) {
+
+                    answerTwoText.setText(answer);
+
+                } else if (answerplace == 3) {
+
+                    answerThreeText.setText(answer);
+
+                } else if (answerplace == 4) {
+
+                    answerFourText.setText(answer);
+
+                }
             }
+
         }
 
     }
