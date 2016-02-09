@@ -304,6 +304,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+
     private void setMenuColors() {
         navHome.setBackgroundColor(getResources().getColor(R.color.colorBlack));
         navHistory.setBackgroundColor(getResources().getColor(R.color.colorBlack));

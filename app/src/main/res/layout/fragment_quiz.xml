@@ -2,8 +2,354 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="HomeActivity" android:layout_marginTop="165px" android:background="#253125">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="110px"
-        android:text="@string/hello_blank_fragment" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout android:id="@+id/quiz_layout_start"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <ImageView android:id="@+id/quiz_start_image"
+                android:layout_width="350dp"
+                android:layout_height="250dp"
+                android:src="@drawable/slideshow5"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Test your knowledge of Tanfield!"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:textSize="16sp"
+                android:textColor="@color/colorWhite"/>
+
+            <RelativeLayout android:id="@+id/quiz_start_button"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorPrimary">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="START QUIZ"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="25sp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout android:id="@+id/quiz_layout_question"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView android:id="@+id/quiz_question_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Question?"
+                android:textColor="@color/colorWhite"
+                android:textSize="30sp"
+                android:layout_marginTop="30sp"
+                android:layout_marginBottom="60dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout android:id="@+id/quiz_question_answer_1"
+                    android:layout_width="330dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/colorBlack"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView android:id="@+id/quiz_question_answer_text_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="ANSWER"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="20dp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout android:id="@+id/quiz_question_answer_2"
+                    android:layout_width="330dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/colorBlack"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView android:id="@+id/quiz_question_answer_text_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="ANSWER"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="20dp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout android:id="@+id/quiz_question_answer_3"
+                    android:layout_width="330dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/colorBlack"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView android:id="@+id/quiz_question_answer_text_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="ANSWER"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="20dp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout android:id="@+id/quiz_question_answer_4"
+                    android:layout_width="330dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/colorBlack">
+
+                    <TextView android:id="@+id/quiz_question_answer_text_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="ANSWER"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="20dp"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout android:id="@+id/quiz_layout_image_question"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView android:id="@+id/quiz_image_question_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Question?"
+                android:textColor="@color/colorWhite"
+                android:textSize="30sp"
+                android:layout_marginTop="30sp"
+                android:layout_marginBottom="15dp"/>
+
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="30dp"
+                android:src="@drawable/slideshow1"
+                android:scaleType="centerCrop"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_horizontal">
+
+                    <RelativeLayout android:id="@+id/quiz_image_question_answer_1"
+                        android:layout_width="160dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@color/colorBlack"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="10dp">
+
+                        <TextView android:id="@+id/quiz_image_question_answer_text_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="ANSWER"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="20dp"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout android:id="@+id/quiz_image_question_answer_2"
+                        android:layout_width="160dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@color/colorBlack"
+                        android:layout_marginBottom="10dp">
+
+                        <TextView android:id="@+id/quiz_image_question_answer_text_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="ANSWER"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="20dp"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_horizontal">
+
+                    <RelativeLayout android:id="@+id/quiz_image_question_answer_3"
+                        android:layout_width="160dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@color/colorBlack"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="10dp">
+
+                        <TextView android:id="@+id/quiz_image_question_answer_text_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="ANSWER"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="20dp"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout android:id="@+id/quiz_image_question_answer_4"
+                        android:layout_width="160dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@color/colorBlack"
+                        android:layout_marginBottom="10dp">
+
+                        <TextView android:id="@+id/quiz_image_question_answer_text_4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="ANSWER"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="20dp"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout android:id="@+id/quiz_layout_end"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="*Message based on score*"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:layout_marginTop="30dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Your Score:"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                android:layout_marginTop="15dp"/>
+
+            <LinearLayout
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+
+                    <TextView android:id="@+id/quiz_final_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="X"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="150sp"
+                        android:layout_marginTop="15dp"
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/x"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="15sp"
+                        android:layout_marginTop="140dp"
+                        android:layout_marginLeft="10dp"/>
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <RelativeLayout android:id="@+id/quiz_end_start_button"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="60dp"
+                android:background="@color/colorPrimary"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="START NEW QUIZ"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="25sp"/>
+
+
+
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
 
 </FrameLayout>
