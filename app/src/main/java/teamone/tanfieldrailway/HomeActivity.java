@@ -112,6 +112,30 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         historyIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
         eventsIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
         kidsIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
+
+        drawer.setDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                collapseHistory();
+                collapseEvents();
+                collapseKids();
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
     }
 
     public void onNavClick(View v) {

@@ -70,6 +70,8 @@ public class QuizFragment extends Fragment {
     float displayWidth;
     float displayWidthIncrement;
 
+    Boolean isUIResponsive = true;
+
     ArrayList<Integer> places = new ArrayList<>();
 
     public QuizFragment() {
@@ -156,98 +158,115 @@ public class QuizFragment extends Fragment {
         answerOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (quizManager.getQuestion().hasSelectedCorrectAnswer(answerOneText.getText().toString())) {
-                    quizManager.incrementScore();
-                } else {
-                    answerOne.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                if(isUIResponsive) {
+                    if (quizManager.getQuestion().hasSelectedCorrectAnswer(answerOneText.getText().toString())) {
+                        quizManager.incrementScore();
+                    } else {
+                        answerOne.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                    }
+                    onAnswerSelect();
                 }
-                onAnswerSelect();
             }
         });
 
         answerTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(quizManager.getQuestion().hasSelectedCorrectAnswer(answerTwoText.getText().toString())) {
-                    quizManager.incrementScore();
-                } else {
-                    answerTwo.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                if(isUIResponsive) {
+                    if(quizManager.getQuestion().hasSelectedCorrectAnswer(answerTwoText.getText().toString())) {
+                        quizManager.incrementScore();
+                    } else {
+                        answerTwo.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                    }
+                    onAnswerSelect();
                 }
-                onAnswerSelect();
             }
+
         });
 
         answerThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(quizManager.getQuestion().hasSelectedCorrectAnswer(answerThreeText.getText().toString())) {
-                    quizManager.incrementScore();
-                } else {
-                    answerThree.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                if(isUIResponsive) {
+                    if(quizManager.getQuestion().hasSelectedCorrectAnswer(answerThreeText.getText().toString())) {
+                        quizManager.incrementScore();
+                    } else {
+                        answerThree.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                    }
+                    onAnswerSelect();
                 }
-                onAnswerSelect();
-
             }
         });
 
         answerFour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(quizManager.getQuestion().hasSelectedCorrectAnswer(answerFourText.getText().toString())) {
-                    quizManager.incrementScore();
-                } else {
-                    answerFour.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                if(isUIResponsive) {
+                    if(quizManager.getQuestion().hasSelectedCorrectAnswer(answerFourText.getText().toString())) {
+                        quizManager.incrementScore();
+                    } else {
+                        answerFour.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                    }
+                    onAnswerSelect();
                 }
-                onAnswerSelect();
+
             }
         });
 
         answerOneImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (quizManager.getCurrentImageQuestion().hasSelectedCorrectAnswer(answerOneTextImage.getText().toString())) {
-                    quizManager.incrementScore();
-                } else {
-                    answerOneImage.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                if(isUIResponsive) {
+                    if (quizManager.getCurrentImageQuestion().hasSelectedCorrectAnswer(answerOneTextImage.getText().toString())) {
+                        quizManager.incrementScore();
+                    } else {
+                        answerOneImage.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                    }
+                    onAnswerSelect();
                 }
-                onAnswerSelect();
+
             }
         });
 
         answerTwoImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(quizManager.getCurrentImageQuestion().hasSelectedCorrectAnswer(answerTwoTextImage.getText().toString())) {
-                    quizManager.incrementScore();
-                } else {
-                    answerTwoImage.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                if(isUIResponsive) {
+                    if(quizManager.getCurrentImageQuestion().hasSelectedCorrectAnswer(answerTwoTextImage.getText().toString())) {
+                        quizManager.incrementScore();
+                    } else {
+                        answerTwoImage.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                    }
+                    onAnswerSelect();
                 }
-                onAnswerSelect();
             }
         });
 
         answerThreeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (quizManager.getCurrentImageQuestion().hasSelectedCorrectAnswer(answerThreeTextImage.getText().toString())) {
-                    quizManager.incrementScore();
-                } else {
-                    answerThreeImage.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                if(isUIResponsive) {
+                    if (quizManager.getCurrentImageQuestion().hasSelectedCorrectAnswer(answerThreeTextImage.getText().toString())) {
+                        quizManager.incrementScore();
+                    } else {
+                        answerThreeImage.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                    }
+                    onAnswerSelect();
                 }
-                onAnswerSelect();
-
             }
         });
 
         answerFourImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (quizManager.getCurrentImageQuestion().hasSelectedCorrectAnswer(answerFourTextImage.getText().toString())) {
-                    quizManager.incrementScore();
-                } else {
-                    answerFourImage.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                if(isUIResponsive) {
+                    if (quizManager.getCurrentImageQuestion().hasSelectedCorrectAnswer(answerFourTextImage.getText().toString())) {
+                        quizManager.incrementScore();
+                    } else {
+                        answerFourImage.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                    }
+                    onAnswerSelect();
                 }
-                onAnswerSelect();
             }
         });
 
@@ -326,6 +345,7 @@ public class QuizFragment extends Fragment {
 
     private void onAnswerSelect() {
         showCorrectAnswer();
+        isUIResponsive = false;
         new CountDownTimer(1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -334,6 +354,7 @@ public class QuizFragment extends Fragment {
 
             public void onFinish() {
                 resestAnswerColors();
+                isUIResponsive = true;
                 if(!quizManager.isLastQuestion()) {
                     quizManager.getNextQuestion();
                     if(!quizManager.getIsImage()) {
