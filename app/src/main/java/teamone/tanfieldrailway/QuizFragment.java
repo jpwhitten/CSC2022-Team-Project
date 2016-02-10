@@ -365,7 +365,8 @@ public class QuizFragment extends Fragment {
                 }
             }
         }.start();
-
+        progressBarParams.width += displayWidthIncrement;
+        progressBar.setLayoutParams(progressBarParams);
     }
 
     public ArrayList<Integer> setAnswerPlacesList() {
