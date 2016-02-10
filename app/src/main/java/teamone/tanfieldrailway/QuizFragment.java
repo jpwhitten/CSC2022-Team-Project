@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 
 public class QuizFragment extends Fragment {
@@ -65,7 +68,6 @@ public class QuizFragment extends Fragment {
     QuizManager quizManager;
 
     float displayWidth;
-
     float displayWidthIncrement;
 
     ArrayList<Integer> places = new ArrayList<>();
@@ -82,6 +84,7 @@ public class QuizFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
 
         View view = inflater.inflate(R.layout.fragment_quiz, container, false);
 
@@ -155,6 +158,8 @@ public class QuizFragment extends Fragment {
             public void onClick(View v) {
                 if (quizManager.getQuestion().hasSelectedCorrectAnswer(answerOneText.getText().toString())) {
                     quizManager.incrementScore();
+                } else {
+                    answerOne.setBackgroundColor(getResources().getColor(R.color.colorRed));
                 }
                 onAnswerSelect();
             }
@@ -165,6 +170,8 @@ public class QuizFragment extends Fragment {
             public void onClick(View v) {
                 if(quizManager.getQuestion().hasSelectedCorrectAnswer(answerTwoText.getText().toString())) {
                     quizManager.incrementScore();
+                } else {
+                    answerTwo.setBackgroundColor(getResources().getColor(R.color.colorRed));
                 }
                 onAnswerSelect();
             }
@@ -175,6 +182,8 @@ public class QuizFragment extends Fragment {
             public void onClick(View v) {
                 if(quizManager.getQuestion().hasSelectedCorrectAnswer(answerThreeText.getText().toString())) {
                     quizManager.incrementScore();
+                } else {
+                    answerThree.setBackgroundColor(getResources().getColor(R.color.colorRed));
                 }
                 onAnswerSelect();
 
@@ -186,6 +195,8 @@ public class QuizFragment extends Fragment {
             public void onClick(View v) {
                 if(quizManager.getQuestion().hasSelectedCorrectAnswer(answerFourText.getText().toString())) {
                     quizManager.incrementScore();
+                } else {
+                    answerFour.setBackgroundColor(getResources().getColor(R.color.colorRed));
                 }
                 onAnswerSelect();
             }
@@ -196,6 +207,8 @@ public class QuizFragment extends Fragment {
             public void onClick(View v) {
                 if (quizManager.getCurrentImageQuestion().hasSelectedCorrectAnswer(answerOneTextImage.getText().toString())) {
                     quizManager.incrementScore();
+                } else {
+                    answerOneImage.setBackgroundColor(getResources().getColor(R.color.colorRed));
                 }
                 onAnswerSelect();
             }
@@ -206,6 +219,8 @@ public class QuizFragment extends Fragment {
             public void onClick(View v) {
                 if(quizManager.getCurrentImageQuestion().hasSelectedCorrectAnswer(answerTwoTextImage.getText().toString())) {
                     quizManager.incrementScore();
+                } else {
+                    answerTwoImage.setBackgroundColor(getResources().getColor(R.color.colorRed));
                 }
                 onAnswerSelect();
             }
@@ -216,6 +231,8 @@ public class QuizFragment extends Fragment {
             public void onClick(View v) {
                 if (quizManager.getCurrentImageQuestion().hasSelectedCorrectAnswer(answerThreeTextImage.getText().toString())) {
                     quizManager.incrementScore();
+                } else {
+                    answerThreeImage.setBackgroundColor(getResources().getColor(R.color.colorRed));
                 }
                 onAnswerSelect();
 
@@ -227,6 +244,8 @@ public class QuizFragment extends Fragment {
             public void onClick(View v) {
                 if (quizManager.getCurrentImageQuestion().hasSelectedCorrectAnswer(answerFourTextImage.getText().toString())) {
                     quizManager.incrementScore();
+                } else {
+                    answerFourImage.setBackgroundColor(getResources().getColor(R.color.colorRed));
                 }
                 onAnswerSelect();
             }
@@ -250,6 +269,41 @@ public class QuizFragment extends Fragment {
 
     }
 
+    private void showCorrectAnswer() {
+        if(quizManager.isImage) {
+            if(answerOneTextImage.getText().equals(quizManager.getCurrentImageQuestion().getCorrectAnswer())) {
+                answerOneImage.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+            } else if(answerTwoTextImage.getText().equals(quizManager.getCurrentImageQuestion().getCorrectAnswer())) {
+                answerTwoImage.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+            } else if(answerThreeTextImage.getText().equals(quizManager.getCurrentImageQuestion().getCorrectAnswer())) {
+                answerThreeImage.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+            } else if(answerFourTextImage.getText().equals(quizManager.getCurrentImageQuestion().getCorrectAnswer())) {
+                answerFourImage.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+            }
+        } else {
+            if(answerOneText.getText().equals(quizManager.getQuestion().getCorrectAnswer())) {
+                answerOne.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+            } else if(answerTwoText.getText().equals(quizManager.getQuestion().getCorrectAnswer())) {
+                answerTwo.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+            } else if(answerThreeText.getText().equals(quizManager.getQuestion().getCorrectAnswer())) {
+                answerThree.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+            } else if(answerFourText.getText().equals(quizManager.getQuestion().getCorrectAnswer())) {
+                answerFour.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+            }
+        }
+    }
+
+    private void resestAnswerColors() {
+        answerOne.setBackgroundColor(getResources().getColor(R.color.colorBlack));
+        answerTwo.setBackgroundColor(getResources().getColor(R.color.colorBlack));
+        answerThree.setBackgroundColor(getResources().getColor(R.color.colorBlack));
+        answerFour.setBackgroundColor(getResources().getColor(R.color.colorBlack));
+        answerOneImage.setBackgroundColor(getResources().getColor(R.color.colorBlack));
+        answerTwoImage.setBackgroundColor(getResources().getColor(R.color.colorBlack));
+        answerThreeImage.setBackgroundColor(getResources().getColor(R.color.colorBlack));
+        answerFourImage.setBackgroundColor(getResources().getColor(R.color.colorBlack));
+    }
+
     private void setUpQuizEnd() {
         quizManager.getNextQuestion();
         setAnswerPlacesList();
@@ -271,37 +325,47 @@ public class QuizFragment extends Fragment {
     }
 
     private void onAnswerSelect() {
-        if(!quizManager.isLastQuestion()) {
-            quizManager.getNextQuestion();
-            if(!quizManager.getIsImage()) {
-                questionText.setText(quizManager.getQuestion().getQuestionString());
-                setAnswerPlacesList();
-                placeAnswers(quizManager.getQuestion(), quizManager.getIsImage());
-                imageQuestionLayout.setVisibility(View.GONE);
-                questionLayout.setVisibility(View.VISIBLE);
-            } else {
-                questionTextImage.setText(quizManager.getCurrentImageQuestion().getQuestionString());
-                setAnswerPlacesList();
-                placeAnswers(quizManager.getCurrentImageQuestion(), quizManager.getIsImage());
-                questionImage.setImageResource(quizManager.getCurrentImageQuestion().getImageID());
-                questionLayout.setVisibility(View.GONE);
-                imageQuestionLayout.setVisibility(View.VISIBLE);
+        showCorrectAnswer();
+        new CountDownTimer(1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+
             }
-        } else {
-            questionLayout.setVisibility(View.GONE);
-            imageQuestionLayout.setVisibility(View.GONE);
-            endLayout.setVisibility(View.VISIBLE);
-            scoreText.setText(Integer.toString(quizManager.getScore()));
-            if(quizManager.getScore() < 5) {
-                message.setText("Better luck next time!");
-            } else if(quizManager.getScore() < 7) {
-                message.setText("Good");
-            } else {
-                message.setText("YAAAAAAAAAAY!");
+
+            public void onFinish() {
+                resestAnswerColors();
+                if(!quizManager.isLastQuestion()) {
+                    quizManager.getNextQuestion();
+                    if(!quizManager.getIsImage()) {
+                        questionText.setText(quizManager.getQuestion().getQuestionString());
+                        setAnswerPlacesList();
+                        placeAnswers(quizManager.getQuestion(), quizManager.getIsImage());
+                        imageQuestionLayout.setVisibility(View.GONE);
+                        questionLayout.setVisibility(View.VISIBLE);
+                    } else {
+                        questionTextImage.setText(quizManager.getCurrentImageQuestion().getQuestionString());
+                        setAnswerPlacesList();
+                        placeAnswers(quizManager.getCurrentImageQuestion(), quizManager.getIsImage());
+                        questionImage.setImageResource(quizManager.getCurrentImageQuestion().getImageID());
+                        questionLayout.setVisibility(View.GONE);
+                        imageQuestionLayout.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    questionLayout.setVisibility(View.GONE);
+                    imageQuestionLayout.setVisibility(View.GONE);
+                    endLayout.setVisibility(View.VISIBLE);
+                    scoreText.setText(Integer.toString(quizManager.getScore()));
+                    if(quizManager.getScore() < 5) {
+                        message.setText("Better luck next time!");
+                    } else if(quizManager.getScore() < 7) {
+                        message.setText("Good");
+                    } else {
+                        message.setText("YAAAAAAAAAAY!");
+                    }
+                }
             }
-        }
-        progressBarParams.width += displayWidthIncrement;
-        progressBar.setLayoutParams(progressBarParams);
+        }.start();
+
     }
 
     public ArrayList<Integer> setAnswerPlacesList() {
