@@ -106,29 +106,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         eventsIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
         kidsIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
 
-        drawer.setDrawerListener(new DrawerLayout.DrawerListener() {
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                collapseHistory();
-                collapseEvents();
-                collapseKids();
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-
-            }
-
-            @Override
-            public void onDrawerStateChanged(int newState) {
-
-            }
-        });
     }
 
     public void onNavClick(View v) {
@@ -310,6 +287,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         if(shouldClose) {
             drawer.closeDrawer(GravityCompat.START);
+            collapseHistory();
+            collapseKids();
+            collapseEvents();
             if(!isHome) {
                 ScrollView sv = (ScrollView) findViewById(R.id.nav_menu);
 
@@ -329,14 +309,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 
     private void setMenuColors() {
-        navHome.setBackgroundColor(getResources().getColor(R.color.colorBlack));
-        navHistory.setBackgroundColor(getResources().getColor(R.color.colorBlack));
-        navEvents.setBackgroundColor(getResources().getColor(R.color.colorBlack));
-        navMap.setBackgroundColor(getResources().getColor(R.color.colorBlack));
-        navLiveJourney.setBackgroundColor(getResources().getColor(R.color.colorBlack));
-        navKids.setBackgroundColor(getResources().getColor(R.color.colorBlack));
-        navWalkingRoutes.setBackgroundColor(getResources().getColor(R.color.colorBlack));
-        navDirections.setBackgroundColor(getResources().getColor(R.color.colorBlack));
+        navHome.setBackgroundColor(Color.parseColor("#DD000000"));
+        navHistory.setBackgroundColor(Color.parseColor("#DD000000"));
+        navEvents.setBackgroundColor(Color.parseColor("#DD000000"));
+        navMap.setBackgroundColor(Color.parseColor("#DD000000"));
+        navLiveJourney.setBackgroundColor(Color.parseColor("#DD000000"));
+        navKids.setBackgroundColor(Color.parseColor("#DD000000"));
+        navWalkingRoutes.setBackgroundColor(Color.parseColor("#DD000000"));
+        navDirections.setBackgroundColor(Color.parseColor("#DD000000"));
         submenuEvents.setBackgroundColor(Color.parseColor("#DD000000"));
         submenuHistory.setBackgroundColor(Color.parseColor("#DD000000"));
         submenuKids.setBackgroundColor(Color.parseColor("#DD000000"));

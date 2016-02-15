@@ -2,14 +2,15 @@ package teamone.tanfieldrailway;
 
 /**
  * Created by Joshua on 08/02/2016.
+ * JW: Added Image and color parameters along with corresponding getters
  */
 public enum WalkingRoutes{
     ANDREWS_HOUSE_TO_SUNNISIDE("Andrews House to Sunniside", "This walk is designed to integrate with existing railway services and\n" +
             "is paced at “dog-walking speed” ie, really slowly!", 1.0, 50, "Car Park at Andrews House Station", "Sunniside Station", "", " suitable for sturdy buggies and powered wheelchairs (this\n" +
-            "track undulates)");
+            "track undulates)", "#DD000000", R.drawable.slideshow5);
 
 
-    WalkingRoutes(String routeName, String description, double distance, double duration, String startingLocation, String endLocation, String mapData, String terrain) {
+    WalkingRoutes(String routeName, String description, double distance, double duration, String startingLocation, String endLocation, String mapData, String terrain, String color, int imageID) {
         this.description = description;
         this.distance = distance;
         this.duration = duration;
@@ -18,6 +19,8 @@ public enum WalkingRoutes{
         this.routeName = routeName;
         this.startingLocation = startingLocation;
         this.terrain = terrain;
+        this.image = imageID;
+        this.color = color;
     }
 
     private String routeName;
@@ -32,6 +35,10 @@ public enum WalkingRoutes{
     private String terrain;
 
     private String mapData;
+
+    private String color;
+
+    private int image;
 
 
         public String getDescription() {
@@ -65,4 +72,12 @@ public enum WalkingRoutes{
         public String getTerrain() {
             return terrain;
         }
+
+    public int getImage() {
+        return image;
+    }
+
+    public String getColor() {
+        return color;
+    }
 }

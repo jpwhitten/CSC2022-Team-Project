@@ -29,15 +29,15 @@ public class QuizManager {
     }
 
     private void setUpQuestions() {
-        Question question1 = new Question("question1", "1", "2", "3", "4", "2");
-        Question question2 = new Question("question2", "1", "2", "3", "4", "2");
-        Question question3 = new Question("question3", "1", "2", "3", "4", "2");
-        Question question4 = new Question("question4", "1", "2", "3", "4", "2");
-        Question question5 = new Question("question5", "1", "2", "3", "4", "2");
-        Question question6 = new Question("question6", "1", "2", "3", "4", "2");
-        Question question7 = new Question("question7", "1", "2", "3", "4", "2");
-        Question question8 = new Question("question8", "1", "2", "3", "4", "2");
-        Question question9 = new Question("question9", "1", "2", "3", "4", "2");
+        Question question1 = new Question("How many wheels does a carriage have?", "4", "6", "8", "12", "4");
+        Question question2 = new Question("When was the oldest carriage in Tanfield built?", "1868", "1875", "1883", "1888", "1875");
+        Question question3 = new Question("When was the newest carriage in Tanfield built?", "1911", "1919", "1946", "1956", "1956");
+        Question question4 = new Question("Where was the Veranda Saloon built?", "York", "Swindon", "Pickering", "Doncaster", "Swindon");
+        Question question5 = new Question("What is the carriage shed called?", "Fawley Hill", "Marley Hill", "Tanfield Hill", "Crossley Hill", "Marley Hill");
+        Question question6 = new Question("Tanfield Railway is the World's ________ Railway.", "Quickest", "Biggest", "Oldest", "Youngest", "Oldest");
+        Question question7 = new Question("How lomg is the Tanfield line", "1.5 miles", "2 miles", "3 miles", "4 miles", "3 miles");
+        Question question8 = new Question("What was Tanfield Railway originally used to transport?", "Coal", "Wood", "Iron", "Stone", "Coal");
+        Question question9 = new Question("When did the conversion from wooden railed to steel railed begin?", "1833", "1834", "1836", "1837", "1837");
         Question question10 = new Question("question10", "1", "2", "3", "4", "2");
         Question question11 = new Question("question11", "1", "2", "3", "4", "2");
         Question question12 = new Question("question12", "1", "2", "3", "4", "2");
@@ -72,7 +72,7 @@ public class QuizManager {
     }
 
     private void setUpImageQuestions() {
-        ImageQuestion imageQuestion1 = new ImageQuestion("imagequestion1", R.drawable.slideshow1, "1", "2", "3", "4", "2");
+        ImageQuestion imageQuestion1 = new ImageQuestion("Question: When was the Causey Arch completed?", R.drawable.slideshow5, "1723", "1726", "1729", "1731", "1726");
         ImageQuestion imageQuestion2 = new ImageQuestion("imagequestion2", R.drawable.slideshow2, "1", "2", "3", "4", "2");
         ImageQuestion imageQuestion3 = new ImageQuestion("imagequestion3", R.drawable.slideshow3, "1", "2", "3", "4", "2");
         ImageQuestion imageQuestion4 = new ImageQuestion("imagequestion4", R.drawable.slideshow4, "1", "2", "3", "4", "2");

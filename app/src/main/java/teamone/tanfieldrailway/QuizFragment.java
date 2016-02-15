@@ -328,6 +328,7 @@ public class QuizFragment extends Fragment {
         setAnswerPlacesList();
         setQuestionView();
         endLayout.setVisibility(View.GONE);
+        isUIResponsive = true;
     }
 
     private void setQuestionView() {
@@ -354,8 +355,8 @@ public class QuizFragment extends Fragment {
 
             public void onFinish() {
                 resestAnswerColors();
-                isUIResponsive = true;
                 if(!quizManager.isLastQuestion()) {
+                    isUIResponsive = true;
                     quizManager.getNextQuestion();
                     if(!quizManager.getIsImage()) {
                         questionText.setText(quizManager.getQuestion().getQuestionString());
