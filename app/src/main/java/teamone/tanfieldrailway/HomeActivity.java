@@ -1,10 +1,7 @@
 package teamone.tanfieldrailway;
 
-import android.app.ActionBar;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
@@ -23,9 +19,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.widget.Scroller;
-
-import java.io.LineNumberReader;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -291,6 +284,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
             setMenuColors();
             selectMenuItem(v, false);
+            WalkingRouteFragment fragment = new WalkingRouteFragment();
+            fragment.setWalkingRoute(WalkingRoutes.ANDREWS_HOUSE_TO_SUNNISIDE); //TODO: THIS IS JUST TO DEMONSTRATE THE FRAGMENT WORKS
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
             setTitle("Walking Routes");
 
         } else if (id == R.id.nav_directions) {
