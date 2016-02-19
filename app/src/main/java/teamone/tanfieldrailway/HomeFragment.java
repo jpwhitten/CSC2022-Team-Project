@@ -1,8 +1,6 @@
 package teamone.tanfieldrailway;
 
-import android.app.Activity;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +29,7 @@ public class HomeFragment extends Fragment {
 
         ImageView slideshow = (ImageView) view.findViewById(R.id.slideshow);
 
-        CyclicTransitionDrawable transition = new CyclicTransitionDrawable( new Drawable[] {
+        RandomTransitionDrawable transition = new RandomTransitionDrawable( new Drawable[] {
                 getResources().getDrawable(R.drawable.slideshow1),
                 getResources().getDrawable(R.drawable.slideshow2),
                 getResources().getDrawable(R.drawable.slideshow3),
@@ -40,7 +38,7 @@ public class HomeFragment extends Fragment {
         });
         slideshow.setImageDrawable(transition);
         slideshow.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        transition.startTransition(1500, 10000);
+        transition.startTransition(1500, 1000);
         // Inflate the layout for this fragment
         return view;
 
