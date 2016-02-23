@@ -255,7 +255,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             setMenuColors();
             selectMenuItem(navKids, false);
             selectMenuItem(submenuKids, true);
-            setTitle("Treasure Hunt");
+
+            TreasureFragment fragment = new TreasureFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
+            setTitle(fragment.getTitle());
 
         } else if (id == R.id.nav_walking_routes) {
 
