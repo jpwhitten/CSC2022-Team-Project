@@ -1,14 +1,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+
     tools:context="HomeActivity"
     android:background="#253125"
-    android:layout_height="wrap_content"
+    android:layout_width="340dp"
+    android:layout_height="115dp"
     android:layout_gravity="center_horizontal"
     android:id="@+id/ListViewItem"
-    android:layout_marginTop="20dp"
-
-    >
+    android:layout_marginTop="20dp">
 
     <ImageView android:id="@+id/list_view_image"
         android:layout_width="match_parent"
@@ -24,14 +23,10 @@
                 android:paddingLeft="10dp"
                 android:paddingStart="10dp"
                 android:paddingBottom="17dp"
-
-
                 android:layout_marginBottom="20dp"
-
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -47,7 +42,6 @@
                     android:text="Large Text"
                     android:id="@+id/list_view_Desc"
                     android:textSize="12sp"
-
                     />
             </LinearLayout>
 </RelativeLayout>
