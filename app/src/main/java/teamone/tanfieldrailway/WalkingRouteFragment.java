@@ -2,14 +2,12 @@ package teamone.tanfieldrailway;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -25,13 +23,13 @@ import android.widget.Toast;
 //JW: changed set text to fit layout, added overlay, button layout and image
 
 public class WalkingRouteFragment extends Fragment {
-    private WalkingRoutes walkingRoute;
+    private static WalkingRoutes walkingRoute; //TODO: Changed to static to prevent crash on rotation
     public WalkingRouteFragment() {
         // Required empty public constructor
     }
 
     public void setWalkingRoute(WalkingRoutes walkingRoute){
-        this.walkingRoute = walkingRoute;
+        WalkingRouteFragment.walkingRoute = walkingRoute;
     }
 
     @Override
@@ -49,10 +47,10 @@ public class WalkingRouteFragment extends Fragment {
         }
 
         //String routeName, String description, double distance, double duration, String startingLocation, String endLocation, String mapData, String terrain
-        TextView routeName = (TextView) view.findViewById(R.id.WalkingRoute_Name);
+        TextView routeName = (TextView) view.findViewById(R.id.list_view_Name);
         routeName.setText(walkingRoute.getRouteName());
 
-        TextView routeDesc = (TextView) view.findViewById(R.id.WalkingRoute_Desc);
+        TextView routeDesc = (TextView) view.findViewById(R.id.list_view_Desc);
         routeDesc.setText(walkingRoute.getDescription());
 
         TextView routeDistance = (TextView) view.findViewById(R.id.WalkingRoute_Distance);
@@ -71,10 +69,10 @@ public class WalkingRouteFragment extends Fragment {
         routeTerrain.setText("Terrain: " + walkingRoute.getTerrain());
 
 
-        ImageView image = (ImageView) view.findViewById(R.id.walking_route_image);
+        ImageView image = (ImageView) view.findViewById(R.id.list_view_image);
         image.setBackground(getResources().getDrawable(walkingRoute.getImage()));
 
-        LinearLayout imageOverlay = (LinearLayout) view.findViewById(R.id.walking_route_image_overlay);
+        LinearLayout imageOverlay = (LinearLayout) view.findViewById(R.id.list_view_image_overlay);
         imageOverlay.setBackgroundColor(Color.parseColor(walkingRoute.getColor()));
 
         RelativeLayout takeWalkButton = (RelativeLayout) view.findViewById(R.id.walking_route_button);

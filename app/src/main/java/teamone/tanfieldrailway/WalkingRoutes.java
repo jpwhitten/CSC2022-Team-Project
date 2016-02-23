@@ -4,7 +4,7 @@ package teamone.tanfieldrailway;
  * Created by Joshua on 08/02/2016.
  * JW: Added Image and color parameters along with corresponding getters
  */
-public enum WalkingRoutes{
+public enum WalkingRoutes implements Row{
     //https://www.google.co.uk/maps/dir/54.92077,-1.674837/54.912775,-1.677614/54.915279,-1.677529/54.918343,-1.676568/54.909907,+-1.675449/@54.9151866,-1.6850345,15z/data=!3m1!4b1!4m10!4m9!1m0!1m0!1m0!1m0!1m3!2m2!1d-1.675449!2d54.909907!3e2
     //https://maps.google.co.uk/maps?dirflg=w&saddr=54.909907,-1.675449&daddr=54.920770,-1.674837 to:54.912775,-1.677614 to: 54.915279,-1.677529 to:54.918343,-1.676568
     ANDREWS_HOUSE_TO_SUNNISIDE("Andrews House to Sunniside", "This walk is designed to integrate with existing railway services and\n" +
@@ -53,7 +53,22 @@ public enum WalkingRoutes{
             return description;
         }
 
-        public double getDistance() {
+    @Override
+    public int getId() {
+        return this.ordinal();
+    }
+
+    @Override
+    public int getPictureID() {
+        return getImage();
+    }
+
+    @Override
+    public String getTitle() {
+        return getRouteName();
+    }
+
+    public double getDistance() {
             return distance;
         }
 
@@ -88,4 +103,6 @@ public enum WalkingRoutes{
     public String getColor() {
         return color;
     }
+
+
 }

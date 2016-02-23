@@ -267,8 +267,23 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
             setMenuColors();
             selectMenuItem(v, false);
-            WalkingRouteFragment fragment = new WalkingRouteFragment();
-            fragment.setWalkingRoute(WalkingRoutes.ANDREWS_HOUSE_TO_CAUSEY_ARCH); //TODO: THIS IS JUST TO DEMONSTRATE THE FRAGMENT WORKS
+            ListViewFragment fragment = new ListViewFragment();
+
+
+            fragment.setListViewItems(WalkingRoutes.values(), new ListViewCallBack() {
+                @Override
+                public void itemClicked(int itemID) {
+                  WalkingRouteFragment walkingRoutesFragment = new WalkingRouteFragment();
+                    walkingRoutesFragment.setWalkingRoute(WalkingRoutes.values()[itemID]);
+                    android.support.v4.app.FragmentTransaction fragmentTransaction =
+                            getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_container, walkingRoutesFragment);
+                    fragmentTransaction.commit();
+                    setTitle("Walking Routes");
+                }
+            });
+
+
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, fragment);
