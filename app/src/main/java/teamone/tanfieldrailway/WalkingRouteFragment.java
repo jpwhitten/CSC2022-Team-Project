@@ -54,10 +54,10 @@ public class WalkingRouteFragment extends Fragment {
         routeDesc.setText(walkingRoute.getDescription());
 
         TextView routeDistance = (TextView) view.findViewById(R.id.WalkingRoute_Distance);
-        routeDistance.setText(String.valueOf("Distance: " + walkingRoute.getDistance()));
+        routeDistance.setText(String.valueOf("Distance: " + walkingRoute.getDistance() + " miles"));
 
         TextView routeDuration = (TextView) view.findViewById(R.id.WalkingRoute_Duration);
-        routeDuration.setText(String.valueOf("Duration: " + walkingRoute.getDuration()));
+        routeDuration.setText(String.valueOf("Duration: " + walkingRoute.getDuration() + " minutes"));
 
         TextView routeStartingLocation = (TextView) view.findViewById(R.id.WalkingRoute_StartingLocation);
         routeStartingLocation.setText("Start: " + walkingRoute.getStartingLocation());
