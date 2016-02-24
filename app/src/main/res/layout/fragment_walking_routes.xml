@@ -31,12 +31,12 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="25dp">
 
-            <ImageView android:id="@+id/walking_route_image"
+            <ImageView android:id="@+id/list_view_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"/>
 
-            <LinearLayout android:id="@+id/walking_route_image_overlay"
+            <LinearLayout android:id="@+id/list_view_image_overlay"
                 android:layout_width="200dp"
                 android:layout_height="match_parent"
                 android:background="#EE000000"
@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorWhite"
                     android:text="Large Text"
-                    android:id="@+id/WalkingRoute_Name"
+                    android:id="@+id/list_view_Name"
                     android:textSize="18sp"/>
 
                 <TextView
@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorWhite"
                     android:text="Large Text"
-                    android:id="@+id/WalkingRoute_Desc"
+                    android:id="@+id/list_view_Desc"
                     android:textSize="12sp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"/>
