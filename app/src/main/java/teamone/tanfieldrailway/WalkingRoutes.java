@@ -1,5 +1,7 @@
 package teamone.tanfieldrailway;
 
+import android.graphics.drawable.Drawable;
+
 /**
  * Created by Joshua on 08/02/2016.
  * JW: Added Image and color parameters along with corresponding getters
@@ -73,6 +75,11 @@ public enum WalkingRoutes implements Row{
     @Override
     public String getTitle() {
         return getRouteName();
+    }
+
+    @Override
+    public Drawable getPicture() {
+        return null;
     }
 
     public double getDistance() {

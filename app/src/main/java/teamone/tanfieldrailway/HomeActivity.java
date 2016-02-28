@@ -1,14 +1,8 @@
 package teamone.tanfieldrailway;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Fragment;
-import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,7 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,8 +22,8 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
-
-import me.dm7.barcodescanner.zxing.ZXingScannerView;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -63,6 +56,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 	AnimationDrawable kidsIndicatorAnimation;
 
 	DrawerLayout drawer;
+
+	private ListViewFragment specialEventsListView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +112,30 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 		historyIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
 		eventsIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
 		kidsIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
+
+
+		try{
+			Event.getEvents(getApplicationContext(), new Response.Listener<Event[]>() {
+				@Override
+				public void onResponse(final Event[] response) {
+					specialEventsListView = new ListViewFragment();
+					specialEventsListView.setListViewItems(response, new ListViewCallBack() {
+						@Override
+						public void itemClicked(int itemID) {
+							SpecialEventsFragment specialEventsFragment = new SpecialEventsFragment();
+							specialEventsFragment.setEvent(response[itemID]);
+							android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+							fragmentTransaction.replace(R.id.fragment_container, specialEventsFragment);
+							fragmentTransaction.commit();
+							setTitle("Events");
+						}
+					});
+				}
+			});
+
+		}catch(VolleyError error){
+			Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+		}
 
 	}
 
@@ -232,6 +251,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 				selectMenuItem(navEvents, false);
 				selectMenuItem(submenuEvents, true);
 				setTitle("Special Events");
+
+
+
+
+				fragmentTransaction.replace(R.id.fragment_container, specialEventsListView);
+				fragmentTransaction.commit();
 				break;
 
 			case R.id.nav_map:

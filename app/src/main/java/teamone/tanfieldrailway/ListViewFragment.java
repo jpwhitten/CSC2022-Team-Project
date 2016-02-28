@@ -1,6 +1,7 @@
 package teamone.tanfieldrailway;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -50,8 +51,13 @@ public class ListViewFragment extends Fragment {
             bg.setBackgroundColor(Color.parseColor(row.getColor()));
 
             ImageView backgroundImage = (ImageView) item.findViewById(R.id.list_view_image);
-            backgroundImage.setImageDrawable(getResources().getDrawable(row.getPictureID()));
 
+            Drawable picture = row.getPicture();
+            if(!(picture == null)){
+                backgroundImage.setImageDrawable(picture);
+            }else {
+                backgroundImage.setImageDrawable(getResources().getDrawable(row.getPictureID()));
+            }
             item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
