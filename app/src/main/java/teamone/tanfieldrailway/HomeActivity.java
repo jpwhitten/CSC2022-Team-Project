@@ -57,7 +57,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 	DrawerLayout drawer;
 
-	private ListViewFragment specialEventsListView;
+	private static ListViewFragment specialEventsListView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

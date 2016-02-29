@@ -48,7 +48,7 @@ public class Event implements Row {
 
     @Override
     public String getColor() {
-        return "#BB156fa9";
+        return "#AB000000";
     }
 
     @Override
