@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  * Created by Joshua on 28/02/2016.
  */
 public class Event implements Row {
-    private int numberOfEvents = 0;
+    private static int numberOfEvents = 0;
 
     private String title;
     private String date;
@@ -70,6 +70,8 @@ public class Event implements Row {
     }
 
     public static void getEvents(final Context context, final Response.Listener<Event[]> callback) throws VolleyError{
+        numberOfEvents = 0;
+
         //https://developer.android.com/training/volley/simple.html
         String URL = "http://www.tanfield-railway.co.uk/events.php";
         RequestQueue queue = Volley.newRequestQueue(context);
