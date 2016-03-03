@@ -23,10 +23,12 @@ public class Event implements Row {
     private String date;
     private String imageURL;
     private Drawable image;
+    private String description;
     private int id = numberOfEvents++;
 
-    public Event(String title, String date, String imageURL) {
+    public Event(String title, String date, String description, String imageURL) {
         this.title = title;
+        this.description = description;
         this.imageURL = imageURL;
         this.date = date;
     }
@@ -46,6 +48,9 @@ public class Event implements Row {
         return title;
     }
 
+    public String getEventDescription(){
+        return description;
+    }
     @Override
     public String getColor() {
         return "#AB000000";
@@ -86,14 +91,17 @@ public class Event implements Row {
                         String titleRegex = "<td id='tName'>(.*)</td>";
                         String imageRegex = "(images\\/events\\/.*\\.(?:png|jpg))";
                         String dateRegex = "<td id='tDate' colspan='2'>(.*)</td>";
+                        String descriptionRegex = "<td>&nbsp;<\\/td>\\n\\s*?<td>(.*?)?<\\/td>";
 
                         Matcher titleMatcher = Pattern.compile(titleRegex).matcher(response);
                         Matcher dateMatcher = Pattern.compile(dateRegex).matcher(response);
                         Matcher imageMatcher = Pattern.compile(imageRegex).matcher(response);
+                        Matcher descriptionMatcher = Pattern.compile(descriptionRegex, Pattern.DOTALL).matcher(response);
                         while(titleMatcher.find()){
                             dateMatcher.find();
                             imageMatcher.find();
-                            final Event event = new Event(titleMatcher.group(1), dateMatcher.group(1), "http://www.tanfield-railway.co.uk/" + imageMatcher.group(1).replaceAll(" ", "%20"));
+                            descriptionMatcher.find();
+                            final Event event = new Event(titleMatcher.group(1), dateMatcher.group(1), android.text.Html.fromHtml(descriptionMatcher.group(1)).toString().replaceAll("￼", ""), "http://www.tanfield-railway.co.uk/" + imageMatcher.group(1).replaceAll(" ", "%20"));
                             new DownloadFileClass()
                             {
                                 @Override public void onPostExecute(Drawable result)

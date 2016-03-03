@@ -30,7 +30,7 @@ public class SpecialEventsFragment extends Fragment {
         imageView.setImageDrawable(event.getPicture());
         titleView.setText(event.getTitle());
         dateView.setText(event.getDate());
-        //descriptionView.setText(event.getEventDescription()); //Not yet implemented
+        descriptionView.setText(event.getEventDescription());
         // Inflate the layout for this
         return view;
     }
