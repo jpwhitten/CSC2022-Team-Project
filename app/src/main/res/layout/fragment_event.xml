@@ -1,80 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			android:orientation="vertical"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="#253125"
+	android:paddingTop="55dp">
+
+	<!--
+    the image here will attempt to be drawn as big as
+    possible whilst not exceeding the screen width
+    so drawable dimensions are important
+    -->
+	<ImageView
+		android:id="@+id/image"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:src="@drawable/slideshow2"
+		android:scaleType="fitCenter"
+		android:adjustViewBounds="true"
+		android:layout_gravity="center_horizontal"
+		android:layout_alignTop="@+id/title"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true" />
+
+	<TextView
+		android:id="@+id/title"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:paddingLeft="15dp"
+		android:paddingRight="15dp"
+		android:paddingTop="5dp"
+		android:paddingBottom="5dp"
+		android:text="Title"
+		android:textSize="16sp"
+		android:layout_gravity="start"
+		android:textColor="@color/colorWhite"
+		android:background="#A000"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true" />
+
+	<TextView
+		android:id="@+id/date"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:paddingLeft="15dp"
+		android:paddingRight="15dp"
+		android:paddingTop="5dp"
+		android:paddingBottom="5dp"
+		android:text="Date"
+		android:textSize="16sp"
+		android:layout_gravity="end"
+		android:textColor="@color/colorWhite"
+		android:layout_alignBottom="@+id/image"
+		android:layout_alignParentLeft="true"
+		android:background="#A000"
+		android:layout_alignParentStart="true" />
+
+	<ScrollView
+		android:id="@+id/description_scroll"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:paddingTop="5dp"
+		android:layout_below="@+id/date"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"
+		android:fillViewport="true">
+		<!-- layout_below is used to automatically adjust to the image's height -->
+
+		<TextView
+			android:id="@+id/description"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:background="#253125">
-			<!--
-			need to add this to the above to attach it to its fragment:
-			tools:context="teamone.tanfieldrailway.[fragment]"
-			-->
+			android:layout_height="wrap_content"
+			android:paddingLeft="5dp"
+			android:paddingStart="5dp"
+			android:paddingRight="5dp"
+			android:paddingEnd="5dp"
 
-			<!--
-			the image here will attempt to be drawn as big as
-			possible whilst not exceeding the screen width
-			so drawable dimensions are important
-			-->
-			<ImageView
-				android:id="@+id/image"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:src="@drawable/slideshow2"
-				android:scaleType="fitCenter"
-				android:adjustViewBounds="true"
-				android:layout_gravity="center_horizontal"/>
+			android:text="Lorum ipsum test content description that should show off how the text handles multiple lines!"
+			android:textSize="16sp"
+			android:textColor="@color/colorWhite"/>
+	</ScrollView>
 
-			<!-- background colour only needs to be set in this first text view -->
-			<TextView
-				android:id="@+id/title"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:paddingLeft="15dp"
-				android:paddingRight="15dp"
-				android:paddingTop="5dp"
-				android:paddingBottom="5dp"
-				android:text="Title"
-				android:textSize="32sp"
-				android:textAlignment="textStart"
-				android:layout_gravity="start"
-				android:textColor="@color/colorWhite"
-				android:background="#A000"
-				android:layout_alignBottom="@+id/image"
-				android:layout_centerHorizontal="true"/>
-
-			<TextView
-				android:id="@+id/date"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:paddingLeft="15dp"
-				android:paddingRight="15dp"
-				android:paddingTop="5dp"
-				android:paddingBottom="5dp"
-				android:text="Date"
-				android:textSize="32sp"
-				android:textAlignment="textEnd"
-				android:layout_gravity="end"
-				android:textColor="@color/colorWhite"
-				android:layout_alignBottom="@+id/image"
-				android:layout_centerHorizontal="true"/>
-
-			<ScrollView
-				android:id="@+id/description_scroll"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:paddingTop="5dp"
-				android:layout_alignParentLeft="true"
-				android:layout_alignParentStart="true"
-				android:layout_below="@+id/image">
-				<!-- layout_below is used to automatically adjust to the image's height -->
-
-				<TextView
-					android:id="@+id/description"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_marginLeft="15dp"
-					android:layout_marginRight="15dp"
-					android:text="Lorum ipsum test content description that should show off how the text handles multiple lines!"
-					android:textSize="20sp"
-					android:textColor="@color/colorWhite"/>
-			</ScrollView>
 </RelativeLayout>
