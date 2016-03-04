@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -113,21 +115,38 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 		eventsIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
 		kidsIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
 
+		getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+			@Override
+			public void onBackStackChanged() {
+				Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+				if(f instanceof HomeFragment){
+					findViewById(R.id.logo).setVisibility(View.VISIBLE);
+				}else{
+					findViewById(R.id.logo).setVisibility(View.INVISIBLE);
+				}
+				if (f instanceof FragmentTitle) {
+					FragmentTitle fragment = (FragmentTitle) f;// do something with f
+					setTitle(fragment.getTitle());
+				}
+			}
+		});
 
 		try{
 			Event.getEvents(getApplicationContext(), new Response.Listener<Event[]>() {
 				@Override
 				public void onResponse(final Event[] response) {
 					specialEventsListView = new ListViewFragment();
+					final SpecialEventsFragment specialEventsFragment = new SpecialEventsFragment();
+					specialEventsListView.setTitle(specialEventsFragment.getTitle());
 					specialEventsListView.setListViewItems(response, new ListViewCallBack() {
 						@Override
 						public void itemClicked(int itemID) {
-							SpecialEventsFragment specialEventsFragment = new SpecialEventsFragment();
+
 							specialEventsFragment.setEvent(response[itemID]);
 							android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 							fragmentTransaction.replace(R.id.fragment_container, specialEventsFragment);
 							fragmentTransaction.commit();
-							setTitle("Events");
+							setTitle(specialEventsListView.getTitle());
 						}
 					});
 				}
@@ -138,6 +157,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 		}
 
 	}
+
 
 	public void onNavClick(View v) {
 
@@ -168,8 +188,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 				findViewById(R.id.logo).setVisibility(View.VISIBLE);
 				HomeFragment homeFragment = new HomeFragment();
 				fragmentTransaction.replace(R.id.fragment_container, homeFragment);
+				fragmentTransaction.addToBackStack(null);
 				fragmentTransaction.commit();
-				setTitle("");
+				setTitle(homeFragment.getTitle());
 				break;
 
 			case R.id.nav_history:
@@ -239,9 +260,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 				setMenuColors();
 				selectMenuItem(navEvents, false);
 				selectMenuItem(submenuEvents, true);
-				setTitle("Daily Events");
+
 				DailyEventsFragment dailyFragment = new DailyEventsFragment();
+				setTitle(dailyFragment.getTitle());
 				fragmentTransaction.replace(R.id.fragment_container, dailyFragment);
+				fragmentTransaction.addToBackStack(null);
 				fragmentTransaction.commit();
 				break;
 
@@ -250,12 +273,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 				setMenuColors();
 				selectMenuItem(navEvents, false);
 				selectMenuItem(submenuEvents, true);
-				setTitle("Special Events");
+				setTitle(specialEventsListView.getTitle());
 
 
 
 
 				fragmentTransaction.replace(R.id.fragment_container, specialEventsListView);
+				fragmentTransaction.addToBackStack(null);
 				fragmentTransaction.commit();
 				break;
 
@@ -299,8 +323,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 				QuizFragment quizFragment = new QuizFragment();
 				fragmentTransaction.replace(R.id.fragment_container, quizFragment);
+				fragmentTransaction.addToBackStack(null);
 				fragmentTransaction.commit();
-				setTitle("Quiz");
+				setTitle(quizFragment.getTitle());
 				break;
 
 			case R.id.nav_treasure_hunt:
@@ -311,6 +336,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 				TreasureFragment treasureFragment = new TreasureFragment();
 				fragmentTransaction.replace(R.id.fragment_container, treasureFragment);
+				fragmentTransaction.addToBackStack(null);
 				fragmentTransaction.commit();
 				setTitle(treasureFragment.getTitle());
 				break;
@@ -321,23 +347,25 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 				selectMenuItem(v, false);
 				ListViewFragment listFragment = new ListViewFragment();
 
-
+				final WalkingRouteFragment walkingRoutesFragment = new WalkingRouteFragment();
+				listFragment.setTitle(walkingRoutesFragment.getTitle());
 				listFragment.setListViewItems(WalkingRoutes.values(), new ListViewCallBack() {
 					@Override
 					public void itemClicked(int itemID) {
-						WalkingRouteFragment walkingRoutesFragment = new WalkingRouteFragment();
+
 						walkingRoutesFragment.setWalkingRoute(WalkingRoutes.values()[itemID]);
 						android.support.v4.app.FragmentTransaction fragmentTransaction =
 								getSupportFragmentManager().beginTransaction();
 						fragmentTransaction.replace(R.id.fragment_container, walkingRoutesFragment);
 						fragmentTransaction.commit();
-						setTitle("Walking Routes");
+						setTitle(walkingRoutesFragment.getTitle());
 					}
 				});
 
 				fragmentTransaction.replace(R.id.fragment_container, listFragment);
+				fragmentTransaction.addToBackStack(null);
 				fragmentTransaction.commit();
-				setTitle("Walking Routes");
+				setTitle(walkingRoutesFragment.getTitle());
 				break;
 
 			case R.id.nav_directions:
@@ -347,8 +375,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 				DirectionFragment directionFragment = new DirectionFragment();
 				fragmentTransaction.replace(R.id.fragment_container, directionFragment);
+				fragmentTransaction.addToBackStack(null);
 				fragmentTransaction.commit();
-				setTitle("Directions");
+				setTitle(directionFragment.getTitle());
 				break;
 
 			default: break;
@@ -493,6 +522,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 	@Override
 	public void onBackPressed() {
+
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 		if (drawer.isDrawerOpen(GravityCompat.START)) {
 			drawer.closeDrawer(GravityCompat.START);
@@ -529,6 +559,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 	@Override
 	public boolean onNavigationItemSelected(MenuItem item) {
 		// Handle navigation view item clicks here.
+
+
 		return true;
 	}
 }

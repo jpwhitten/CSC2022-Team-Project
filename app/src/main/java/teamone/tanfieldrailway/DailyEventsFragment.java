@@ -1,19 +1,21 @@
 package teamone.tanfieldrailway;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class DailyEventsFragment extends Fragment {
+public class DailyEventsFragment extends Fragment implements FragmentTitle {
 
 
 
     public DailyEventsFragment() {
         // Required empty public constructor
+    }
+
+    public String getTitle(){
+        return "Daily Events";
     }
 
     @Override

@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 //JW: changed set text to fit layout, added overlay, button layout and image
 
-public class WalkingRouteFragment extends Fragment {
+public class WalkingRouteFragment extends Fragment implements FragmentTitle {
     private static WalkingRoutes walkingRoute; //TODO: Changed to static to prevent crash on rotation
     public WalkingRouteFragment() {
         // Required empty public constructor
@@ -35,8 +35,10 @@ public class WalkingRouteFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
 
-
+    public String getTitle(){
+        return "Walking Routes";
     }
 
     @Override

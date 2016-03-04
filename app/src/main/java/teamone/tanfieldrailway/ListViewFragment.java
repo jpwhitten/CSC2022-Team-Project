@@ -12,12 +12,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class ListViewFragment extends Fragment {
+public class ListViewFragment extends Fragment implements FragmentTitle {
 // TODO: Rename and change types of parameters
    private Row[] listViewItems;
     private ListViewCallBack callback;
+    private String title;
     public ListViewFragment() {
         // Required empty public constructor
+    }
+
+    public void setTitle(String title){
+        this.title = title;
     }
 
     public void setListViewItems(Row[] listViewItems, ListViewCallBack callback){
@@ -25,6 +30,9 @@ public class ListViewFragment extends Fragment {
         this.callback = callback;
     }
 
+    public String getTitle(){
+        return title;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

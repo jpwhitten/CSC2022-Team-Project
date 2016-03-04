@@ -15,8 +15,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class DirectionFragment extends Fragment {
+public class DirectionFragment extends Fragment implements FragmentTitle {
     private static final int PHONE_PERMISSION_REQUEST = 5;
+
+    public String getTitle(){
+        return "Directions";
+    }
 
     public DirectionFragment() {
         // Required empty public constructor

@@ -1,13 +1,8 @@
 package teamone.tanfieldrailway;
 
-import android.app.ActionBar;
-import android.graphics.Color;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +13,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 
-public class QuizFragment extends Fragment {
+public class QuizFragment extends Fragment implements FragmentTitle {
 
 	LinearLayout startLayout;
 	LinearLayout questionLayout;
@@ -76,6 +69,10 @@ public class QuizFragment extends Fragment {
 
 	public QuizFragment() {
 		// Required empty public constructor
+	}
+
+	public String getTitle(){
+		return "Quiz";
 	}
 
 	@Override

@@ -8,10 +8,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class SpecialEventsFragment extends Fragment {
+public class SpecialEventsFragment extends Fragment implements FragmentTitle {
     private static Event event;
     public SpecialEventsFragment() {
         // Required empty public constructor
+    }
+
+    public String getTitle(){
+        return "Special Events";
     }
 
     public void setEvent(Event event){

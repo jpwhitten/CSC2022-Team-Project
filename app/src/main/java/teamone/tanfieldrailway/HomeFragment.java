@@ -9,8 +9,11 @@ import android.support.v4.app.Fragment;
 import android.widget.ImageView;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements FragmentTitle {
 
+    public String getTitle(){
+        return "";
+    }
 
     public HomeFragment() {
         // Required empty public constructor
