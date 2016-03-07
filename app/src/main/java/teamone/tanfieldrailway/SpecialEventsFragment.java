@@ -9,7 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class SpecialEventsFragment extends Fragment implements FragmentTitle {
-    private static Event event;
+    private static Event[] events;
+    private static int selectedIndex = 0;
     public SpecialEventsFragment() {
         // Required empty public constructor
     }
@@ -18,8 +19,9 @@ public class SpecialEventsFragment extends Fragment implements FragmentTitle {
         return "Special Events";
     }
 
-    public void setEvent(Event event){
-        this.event = event;
+    public void setEvent(Event[] events, int selectedIndex){
+        this.events = events;
+        this.selectedIndex = selectedIndex;
     }
 
     @Override
@@ -31,10 +33,10 @@ public class SpecialEventsFragment extends Fragment implements FragmentTitle {
         TextView dateView = (TextView) view.findViewById(R.id.date);
         TextView descriptionView = (TextView) view.findViewById(R.id.description);
 
-        imageView.setImageDrawable(event.getPicture());
-        titleView.setText(event.getTitle());
-        dateView.setText(event.getDate());
-        descriptionView.setText(event.getEventDescription());
+        imageView.setImageDrawable(events[selectedIndex].getPicture());
+        titleView.setText(events[selectedIndex].getTitle());
+        dateView.setText(events[selectedIndex].getDate());
+        descriptionView.setText(events[selectedIndex].getEventDescription());
         // Inflate the layout for this
         return view;
     }

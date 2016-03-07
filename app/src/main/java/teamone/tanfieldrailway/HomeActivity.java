@@ -66,7 +66,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_layout);
 
-		HomeFragment fragment = new HomeFragment();
+		final HomeFragment fragment = new HomeFragment();
 		android.support.v4.app.FragmentTransaction fragmentTransaction =
 				getSupportFragmentManager().beginTransaction();
 		fragmentTransaction.replace(R.id.fragment_container, fragment);
@@ -118,6 +118,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 		getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
 			@Override
 			public void onBackStackChanged() {
+
 				Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 				if(f instanceof HomeFragment){
 					findViewById(R.id.logo).setVisibility(View.VISIBLE);
@@ -128,6 +129,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 					FragmentTitle fragment = (FragmentTitle) f;// do something with f
 					setTitle(fragment.getTitle());
 				}
+
 			}
 		});
 
@@ -142,9 +144,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 						@Override
 						public void itemClicked(int itemID) {
 
-							specialEventsFragment.setEvent(response[itemID]);
+							specialEventsFragment.setEvent(response, itemID);
 							android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 							fragmentTransaction.replace(R.id.fragment_container, specialEventsFragment);
+							fragmentTransaction.addToBackStack(null);
 							fragmentTransaction.commit();
 							setTitle(specialEventsListView.getTitle());
 						}
@@ -354,9 +357,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 					public void itemClicked(int itemID) {
 
 						walkingRoutesFragment.setWalkingRoute(WalkingRoutes.values()[itemID]);
-						android.support.v4.app.FragmentTransaction fragmentTransaction =
-								getSupportFragmentManager().beginTransaction();
+						android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 						fragmentTransaction.replace(R.id.fragment_container, walkingRoutesFragment);
+						fragmentTransaction.addToBackStack(null);
 						fragmentTransaction.commit();
 						setTitle(walkingRoutesFragment.getTitle());
 					}
@@ -522,7 +525,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 	@Override
 	public void onBackPressed() {
-
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 		if (drawer.isDrawerOpen(GravityCompat.START)) {
 			drawer.closeDrawer(GravityCompat.START);
