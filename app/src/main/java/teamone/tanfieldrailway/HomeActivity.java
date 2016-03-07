@@ -67,8 +67,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 		setContentView(R.layout.home_layout);
 
 		final HomeFragment fragment = new HomeFragment();
-		android.support.v4.app.FragmentTransaction fragmentTransaction =
-				getSupportFragmentManager().beginTransaction();
+		android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 		fragmentTransaction.replace(R.id.fragment_container, fragment);
 		fragmentTransaction.commit();
 
@@ -77,20 +76,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 		setTitle("");
 
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-				this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 		drawer.setDrawerListener(toggle);
 		toggle.syncState();
 
 		NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
 
-		ScrollView sv = (ScrollView) findViewById(R.id.nav_menu);
-
-		FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) sv.getLayoutParams();
-
-		layoutParams.topMargin = NAV_MARGIN_HOME;
-		sv.setLayoutParams(layoutParams);
+		positionNavDrawerUnderLogo();
 
 		navHome = (RelativeLayout) findViewById(R.id.nav_home);
 		navHistory = (RelativeLayout) findViewById(R.id.nav_history);
@@ -121,7 +114,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 				Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 				if(f instanceof HomeFragment){
-					findViewById(R.id.logo).setVisibility(View.VISIBLE);
+					positionNavDrawerUnderLogo();
 				}else{
 					findViewById(R.id.logo).setVisibility(View.INVISIBLE);
 				}
@@ -161,7 +154,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 	}
 
+	private void positionNavDrawerUnderLogo(){
+		ScrollView sv = (ScrollView) findViewById(R.id.nav_menu);
+		FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) sv.getLayoutParams();
+		layoutParams.topMargin = NAV_MARGIN_HOME;
+		sv.setLayoutParams(layoutParams);
 
+		findViewById(R.id.logo).setVisibility(View.VISIBLE);
+	}
 	public void onNavClick(View v) {
 
 		Boolean shouldClose = true;
@@ -180,15 +180,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 				setMenuColors();
 				selectMenuItem(v, false);
 
-				ScrollView sv = (ScrollView) findViewById(R.id.nav_menu);
-
-				FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) sv
-						.getLayoutParams();
-
-				layoutParams.topMargin = NAV_MARGIN_HOME;
-				sv.setLayoutParams(layoutParams);
-
-				findViewById(R.id.logo).setVisibility(View.VISIBLE);
+				positionNavDrawerUnderLogo();
 				HomeFragment homeFragment = new HomeFragment();
 				fragmentTransaction.replace(R.id.fragment_container, homeFragment);
 				fragmentTransaction.addToBackStack(null);
