@@ -111,8 +111,7 @@ public class Event implements Row {
                             }.execute(event.getImageURL());
 
                             eventList = java.util.Arrays.copyOf(eventList, eventList.length +1);
-
-                            eventList[eventList.length -1] =  event;
+                            eventList[eventList.length -1] = event;
 
                         }
 

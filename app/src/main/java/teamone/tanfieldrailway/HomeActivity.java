@@ -8,6 +8,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -58,6 +59,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 	AnimationDrawable kidsIndicatorAnimation;
 
 	DrawerLayout drawer;
+
+	ViewPager mViewPager;
 
 	private static ListViewFragment specialEventsListView;
 
@@ -131,15 +134,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 				@Override
 				public void onResponse(final Event[] response) {
 					specialEventsListView = new ListViewFragment();
-					final SpecialEventsFragment specialEventsFragment = new SpecialEventsFragment();
-					specialEventsListView.setTitle(specialEventsFragment.getTitle());
 					specialEventsListView.setListViewItems(response, new ListViewCallBack() {
 						@Override
 						public void itemClicked(int itemID) {
-
-							specialEventsFragment.setEvent(response, itemID);
+							ViewPagerFragment viewPagerFragment = new ViewPagerFragment();
+							viewPagerFragment.setEvents(response, itemID);
 							android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-							fragmentTransaction.replace(R.id.fragment_container, specialEventsFragment);
+							fragmentTransaction.replace(R.id.fragment_container, viewPagerFragment);
 							fragmentTransaction.addToBackStack(null);
 							fragmentTransaction.commit();
 							setTitle(specialEventsListView.getTitle());
