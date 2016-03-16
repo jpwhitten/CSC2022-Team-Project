@@ -59,7 +59,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 	AnimationDrawable kidsIndicatorAnimation;
 
 	DrawerLayout drawer;
-
+	TreasureHuntManager treasureHuntManager;
 	ViewPager mViewPager;
 
 	private static ListViewFragment specialEventsListView;
@@ -110,6 +110,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 		historyIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
 		eventsIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
 		kidsIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
+
+		Bundle extras = getIntent().getExtras();
+			if (extras != null) {
+				treasureHuntManager = extras.getParcelable("teamone.tanfieldrailway.TreasureHuntManager");
+				Toast.makeText(HomeActivity.this, String.valueOf(treasureHuntManager.getTreasures().get(0).isFound()) , Toast.LENGTH_SHORT).show();
+			} else {
+				treasureHuntManager = new TreasureHuntManager();
+			}
 
 		getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
 			@Override
@@ -543,7 +551,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 		//noinspection SimplifiableIfStatement
 		if (id == R.id.action_settings) {
-			startActivity(new Intent(HomeActivity.this, ScanActivity.class));
+			Intent i = new Intent(this, ScanActivity.class);
+			i.putExtra("teamone.tanfieldrailway.TreasureHuntManager", treasureHuntManager);
+			startActivity(i);
 			return true;
 		}
 

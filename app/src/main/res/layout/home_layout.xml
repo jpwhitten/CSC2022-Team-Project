@@ -5,21 +5,42 @@
 
     <include layout="@layout/app_bar_home"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="220dp"
-            android:layout_height="100dp"
-            android:src="@drawable/logo"
-            android:scaleType="fitXY"
-            android:layout_gravity="top"
-            android:layout_marginTop="40dp"
-            android:id="@+id/logo"
-            />
+        <RelativeLayout
+            android:id="@+id/leftconfetti"
+            android:layout_width="1dp"
+            android:layout_height="1dp">
+        </RelativeLayout>
 
-    </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/rightconfetti"
+            android:layout_alignParentRight="true"
+            android:layout_width="1dp"
+            android:layout_height="1dp">
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="220dp"
+                android:layout_height="100dp"
+                android:src="@drawable/logo"
+                android:scaleType="fitXY"
+                android:layout_gravity="top"
+                android:layout_marginTop="40dp"
+                android:id="@+id/logo"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
 
 </RelativeLayout>

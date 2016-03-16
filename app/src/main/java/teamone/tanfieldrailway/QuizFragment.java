@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.plattysoft.leonids.ParticleSystem;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -67,6 +69,17 @@ public class QuizFragment extends Fragment implements FragmentTitle {
 
 	ArrayList<Integer> places = new ArrayList<>();
 
+	ParticleSystem leftConfetti;
+	ParticleSystem rightConfetti;
+	View view;
+
+	@Override
+	public void onDestroy() {
+		leftConfetti.cancel();
+		rightConfetti.cancel();
+		super.onDestroy();
+	}
+
 	public QuizFragment() {
 		// Required empty public constructor
 	}
@@ -85,7 +98,8 @@ public class QuizFragment extends Fragment implements FragmentTitle {
 							 Bundle savedInstanceState) {
 
 
-		View view = inflater.inflate(R.layout.fragment_quiz, container, false);
+		view = inflater.inflate(R.layout.fragment_quiz, container, false);
+		setUpEmitters();
 
 		startLayout = (LinearLayout) view.findViewById(R.id.quiz_layout_start);
 		questionLayout = (LinearLayout) view.findViewById(R.id.quiz_layout_question);
@@ -285,6 +299,22 @@ public class QuizFragment extends Fragment implements FragmentTitle {
 
 	}
 
+	private void setUpEmitters() {
+		leftConfetti = new ParticleSystem(this.getActivity(), 80, R.drawable.confetti_green, 10000);
+		leftConfetti.setSpeedModuleAndAngleRange(0f, 0.2f, 270, 450);
+		leftConfetti.setRotationSpeed(144);
+		leftConfetti.setRotationSpeedRange(1, 144);
+		leftConfetti.setAcceleration(0.00005f, 90);
+		leftConfetti.setScaleRange(0.5f, 1.1f);
+
+		rightConfetti = new ParticleSystem(this.getActivity(), 80, R.drawable.confetti_cream, 10000);
+		rightConfetti.setSpeedModuleAndAngleRange(0f, 0.2f, 90, 270);
+		rightConfetti.setRotationSpeed(144);
+		rightConfetti.setRotationSpeedRange(1, 144);
+		rightConfetti.setAcceleration(0.00005f, 90);
+		rightConfetti.setScaleRange(0.5f, 1.1f);
+	}
+
 	private void showCorrectAnswer() {
 		if(quizManager.isImage) {
 			if(answerOneTextImage.getText().equals(quizManager.getCurrentImageQuestion().getCorrectAnswer())) {
@@ -326,6 +356,9 @@ public class QuizFragment extends Fragment implements FragmentTitle {
 		setQuestionView();
 		endLayout.setVisibility(View.GONE);
 		isUIResponsive = true;
+		leftConfetti.stopEmitting();
+		rightConfetti.stopEmitting();
+		setUpEmitters();
 	}
 
 	private void setQuestionView() {
@@ -379,6 +412,8 @@ public class QuizFragment extends Fragment implements FragmentTitle {
 					} else if(quizManager.getScore() < 7) {
 						message.setText("Good");
 					} else {
+						leftConfetti.emit(view.findViewById(R.id.quiz_emitter_top_left), 8);
+						rightConfetti.emit(view.findViewById(R.id.quiz_emitter_top_right), 8);
 						message.setText("YAAAAAAAAAAY!");
 					}
 				}

@@ -1,10 +1,32 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="HomeActivity" android:layout_marginTop="55dp" android:background="#253125">
+    android:layout_height="match_parent" tools:context="HomeActivity"  android:background="#253125">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/quiz_emitter_top_left"
+            android:layout_width="1dp"
+            android:layout_height="1dp">
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/quiz_emitter_top_right"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:layout_alignParentRight="true"
+            >
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="55dp">
+
 
         <LinearLayout android:id="@+id/quiz_layout_start"
             android:layout_width="match_parent"
@@ -60,6 +82,8 @@
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:textAlignment="center"
                 android:layout_marginTop="30sp"
                 android:layout_marginBottom="60dp"/>
@@ -188,6 +212,7 @@
                             android:layout_centerInParent="true"
                             android:text="ANSWER"
                             android:textColor="@color/colorWhite"
+                            android:textAlignment="center"
                             android:textSize="20dp"/>
 
                     </RelativeLayout>
@@ -204,6 +229,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:text="ANSWER"
+                            android:textAlignment="center"
                             android:textColor="@color/colorWhite"
                             android:textSize="20dp"/>
 
@@ -230,6 +256,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:text="ANSWER"
+                            android:textAlignment="center"
                             android:textColor="@color/colorWhite"
                             android:textSize="20dp"/>
 
@@ -246,6 +273,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
+                            android:textAlignment="center"
                             android:text="ANSWER"
                             android:textColor="@color/colorWhite"
                             android:textSize="20dp"/>

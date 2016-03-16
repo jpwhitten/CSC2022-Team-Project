@@ -2,11 +2,8 @@ package teamone.tanfieldrailway;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.widget.Toast;
 
 import com.google.zxing.Result;
 
@@ -15,12 +12,17 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 public class ScanActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     private ZXingScannerView mScannerView;
+    private TreasureHuntManager treasureHuntManager;
+    boolean treasureFound = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mScannerView = new ZXingScannerView(this);
         setContentView(mScannerView);
+        Bundle b = getIntent().getExtras();
+        treasureHuntManager = b.getParcelable("teamone.tanfieldrailway.TreasureHuntManager");
+        Toast.makeText(ScanActivity.this, treasureHuntManager.getTreasures().get(0).getName(), Toast.LENGTH_SHORT).show();
     }
 
 
@@ -41,12 +43,23 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
     @Override
     public void handleResult(Result rawResult) {
         // Do something with the result here
-        System.out.println(rawResult.getText()); // Prints scan results
+        String scanResult = rawResult.getText(); // Prints scan results
         System.out.println(rawResult.getBarcodeFormat().toString()); // Prints the scan format (qrcode, pdf417 etc.)
-
+        for(int i = 0; i < treasureHuntManager.getTreasures().size(); i++) {
+            if(treasureHuntManager.getTreasures().get(i).getName().equals(scanResult)) {
+                Toast.makeText(ScanActivity.this, scanResult, Toast.LENGTH_SHORT).show();
+                treasureFound = true;
+            }
+        }
+        if(!treasureFound) {
+            Toast.makeText(ScanActivity.this, "No Treasure Found", Toast.LENGTH_SHORT).show();
+        }
+        treasureHuntManager.getTreasures().get(0).setFound(true);
+        Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+        i.putExtra("teamone.tanfieldrailway.TreasureHuntManager", treasureHuntManager);
         // If you would like to resume scanning, call this method below:
         // mScannerView.resumeCameraPreview(this);
-        startActivity(new Intent(ScanActivity.this, HomeActivity.class));
+        startActivity(i);
     }
 
 

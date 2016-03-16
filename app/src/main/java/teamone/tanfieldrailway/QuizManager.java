@@ -1,7 +1,5 @@
 package teamone.tanfieldrailway;
 
-import android.media.Image;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -35,7 +33,7 @@ public class QuizManager {
         Question question4 = new Question("Where was the Veranda Saloon built?", "York", "Swindon", "Pickering", "Doncaster", "Swindon");
         Question question5 = new Question("What is the carriage shed called?", "Fawley Hill", "Marley Hill", "Tanfield Hill", "Crossley Hill", "Marley Hill");
         Question question6 = new Question("Tanfield Railway is the World's ________ Railway.", "Quickest", "Biggest", "Oldest", "Youngest", "Oldest");
-        Question question7 = new Question("How lomg is the Tanfield line", "1.5 miles", "2 miles", "3 miles", "4 miles", "3 miles");
+        Question question7 = new Question("How long is the Tanfield line", "1.5 miles", "2 miles", "3 miles", "4 miles", "3 miles");
         Question question8 = new Question("What was Tanfield Railway originally used to transport?", "Coal", "Wood", "Iron", "Stone", "Coal");
         Question question9 = new Question("When did the conversion from wooden railed to steel railed begin?", "1833", "1834", "1836", "1837", "1837");
         Question question10 = new Question("When does the railway date back to?", "1725", "1845", "1760", "1900", "1725");
@@ -72,11 +70,11 @@ public class QuizManager {
     }
 
     private void setUpImageQuestions() {
-        ImageQuestion imageQuestion1 = new ImageQuestion("Question: When was the Causey Arch completed?", R.drawable.slideshow5, "1723", "1726", "1729", "1731", "1726");
-        ImageQuestion imageQuestion2 = new ImageQuestion("imagequestion2", R.drawable.slideshow2, "1", "2", "3", "4", "2");
-        ImageQuestion imageQuestion3 = new ImageQuestion("imagequestion3", R.drawable.slideshow3, "1", "2", "3", "4", "2");
-        ImageQuestion imageQuestion4 = new ImageQuestion("imagequestion4", R.drawable.slideshow4, "1", "2", "3", "4", "2");
-        ImageQuestion imageQuestion5 = new ImageQuestion("imagequestion5", R.drawable.slideshow5, "1", "2", "3", "4", "2");
+        ImageQuestion imageQuestion1 = new ImageQuestion("When was the Causey Arch completed?", R.drawable.slideshow5, "1723", "1726", "1729", "1731", "1726");
+        ImageQuestion imageQuestion2 = new ImageQuestion("Name this train", R.drawable.quiz1, "No.3 TWIZELL", "Nobels Explosives No.2", "Sir Cecile A Cochrane ", "PLANET", "Nobels Explosives No.2");
+        ImageQuestion imageQuestion3 = new ImageQuestion("What is the name of this Engine Shed?", R.drawable.quiz2, "Manly Hill", "Marley Hill", "Murkey Hut", "Causey Hill", "Marley Hill");
+        ImageQuestion imageQuestion4 = new ImageQuestion("What is the name of this bridge?", R.drawable.quiz3, "Cosy Arch", "Causey Arch", "Marley Bridge", "Manly Bridge", "Causey Arch");
+        ImageQuestion imageQuestion5 = new ImageQuestion("What time of year do we showcase the North Pole Express?", R.drawable.quiz4, "Easter", "Christmas", "Chinese New Year", "Eid", "Christmas");
         imageQuestions.add(imageQuestion1);
         imageQuestions.add(imageQuestion2);
         imageQuestions.add(imageQuestion3);
