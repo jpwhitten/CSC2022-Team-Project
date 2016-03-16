@@ -21,8 +21,11 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
         mScannerView = new ZXingScannerView(this);
         setContentView(mScannerView);
         Bundle b = getIntent().getExtras();
-        treasureHuntManager = b.getParcelable("teamone.tanfieldrailway.TreasureHuntManager");
-        Toast.makeText(ScanActivity.this, treasureHuntManager.getTreasures().get(0).getName(), Toast.LENGTH_SHORT).show();
+        if(b != null && b.containsKey("teamone.tanfieldrailway.TreasureHuntManager")){
+            treasureHuntManager = b.getParcelable("teamone.tanfieldrailway.TreasureHuntManager");
+            Toast.makeText(ScanActivity.this, treasureHuntManager.getTreasures().get(0).getName(), Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 

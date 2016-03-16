@@ -113,8 +113,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 		Bundle extras = getIntent().getExtras();
 			if (extras != null) {
-				treasureHuntManager = extras.getParcelable("teamone.tanfieldrailway.TreasureHuntManager");
-				Toast.makeText(HomeActivity.this, String.valueOf(treasureHuntManager.getTreasures().get(0).isFound()) , Toast.LENGTH_SHORT).show();
+				if(extras.containsKey("teamone.tanfieldrailway.TreasureHuntManager")){
+					treasureHuntManager = extras.getParcelable("teamone.tanfieldrailway.TreasureHuntManager");
+					Toast.makeText(HomeActivity.this, String.valueOf(treasureHuntManager.getTreasures().get(0).isFound()) , Toast.LENGTH_SHORT).show();
+				}
 			} else {
 				treasureHuntManager = new TreasureHuntManager();
 			}
@@ -230,7 +232,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 				setMenuColors();
 				selectMenuItem(navHistory, false);
 				selectMenuItem(submenuHistory, true);
-				setTitle("Carriages");
+
+				ListViewFragment carriagesListView = new ListViewFragment();
+				carriagesListView.setTitle("Carriages");
+				carriagesListView.setListViewItems(Carriage.values(), new ListViewCallBack() {
+					@Override
+					public void itemClicked(int itemID) {
+
+					}
+				});
+
+				fragmentTransaction.replace(R.id.fragment_container, carriagesListView);
+				fragmentTransaction.addToBackStack(null);
+				fragmentTransaction.commit();
+				setTitle(carriagesListView.getTitle());
 				break;
 
 			case R.id.nav_trains:
@@ -273,7 +288,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 				break;
 
 			case R.id.nav_special_events:
-
+				if(specialEventsListView == null){
+					break;
+				}
 				setMenuColors();
 				selectMenuItem(navEvents, false);
 				selectMenuItem(submenuEvents, true);
@@ -552,7 +569,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 		//noinspection SimplifiableIfStatement
 		if (id == R.id.action_settings) {
 			Intent i = new Intent(this, ScanActivity.class);
-			i.putExtra("teamone.tanfieldrailway.TreasureHuntManager", treasureHuntManager);
+			if(treasureHuntManager != null){
+				i.putExtra("teamone.tanfieldrailway.TreasureHuntManager", treasureHuntManager);
+			}
 			startActivity(i);
 			return true;
 		}
