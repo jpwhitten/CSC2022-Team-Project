@@ -80,6 +80,13 @@ public class QuizFragment extends Fragment implements FragmentTitle {
 		super.onDestroy();
 	}
 
+	@Override
+	public void onPause() {
+		leftConfetti.cancel();
+		rightConfetti.cancel();
+		super.onPause();
+	}
+
 	public QuizFragment() {
 		// Required empty public constructor
 	}
