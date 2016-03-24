@@ -66,6 +66,6 @@ public enum Carriage implements Row{
 
     @Override
     public String getColor() {
-        return null;
+        return "#AB000000";
     }
 }

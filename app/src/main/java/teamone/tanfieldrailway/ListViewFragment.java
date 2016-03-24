@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -53,30 +54,44 @@ public class ListViewFragment extends Fragment implements FragmentTitle {
             scrollLayout.addView(listView);
 
             RelativeLayout item = (RelativeLayout) listView.findViewById(R.id.ListViewItem);
+
+           final ImageView backgroundImage = (ImageView) item.findViewById(R.id.list_view_image);
+
+            new AsyncTask<Integer, Void, Drawable>() {
+                @Override
+                protected Drawable doInBackground(Integer... params) {
+
+                    Drawable picture = row.getPicture();
+                    if(picture != null){
+                        return picture;
+                    }else {
+                        return getResources().getDrawable(row.getPictureID());
+                    }
+                }
+
+                @Override
+                protected void onPostExecute(Drawable drawable) {
+                    backgroundImage.setImageDrawable(drawable);
+                }
+
+            }.execute();
+
             TextView name = (TextView) item.findViewById(R.id.list_view_Name);
             name.setText(row.getTitle());
 
             TextView desc = (TextView) item.findViewById(R.id.list_view_Desc);
             desc.setText(row.getDescription());
 
-            LinearLayout bg = (LinearLayout) item.findViewById(R.id.list_view_image_overlay);
+            String rowColor = row.getColor();
 
-            if(row.getColor() != null) {
-                bg.setBackgroundColor(Color.parseColor(row.getColor()));
+            if(rowColor != null) {
+                LinearLayout bg = (LinearLayout) item.findViewById(R.id.list_view_image_overlay);
+                bg.setBackgroundColor(Color.parseColor(rowColor));
             }
 
-            ImageView backgroundImage = (ImageView) item.findViewById(R.id.list_view_image);
-
-            Drawable picture = row.getPicture();
-            if(!(picture == null)){
-                backgroundImage.setImageDrawable(picture);
-            }else {
-                backgroundImage.setImageResource(row.getPictureID());
-            }
             item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     callback.itemClicked(row.getId());
                 }
             });
