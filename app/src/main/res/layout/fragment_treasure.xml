@@ -6,101 +6,171 @@
     android:layout_marginTop="55dp"
     android:background="#253125">
 
-
-    <Button
-        android:id="@+id/ResetTreasureButton"
-        android:layout_marginBottom="30dp"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:background="@color/colorRed"
-        android:text="RESET TREASURES"
-        android:textSize="30sp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
     <!-- rename the ids -->
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="20dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center_horizontal">
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/button0"
-                android:layout_marginTop="20dp"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:src="@drawable/temp_button"
-                android:layout_marginRight="50dp"
-               />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal">
 
-            <ImageView
-                android:id="@+id/button1"
+                <ImageView
+                    android:id="@+id/treasure1"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/temp_button"
+                    android:layout_marginRight="40dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/treasure2"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/temp_button" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal">
+
+                <ImageView
+                    android:id="@+id/treasure3"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/temp_button"
+                    android:layout_marginRight="40dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/treasure4"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/temp_button" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal">
+
+                <ImageView
+                    android:id="@+id/treasure5"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/temp_button"
+                    android:layout_marginRight="40dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/treasure6"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/temp_button" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/ResetTreasureButton"
                 android:layout_marginTop="20dp"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:src="@drawable/temp_button" />
+                android:layout_height="50dp"
+                android:layout_width="280dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:background="@color/colorRed"
+                android:text="RESET TREASURES"
+                android:textSize="25sp"
+                android:layout_gravity="center_horizontal" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center_horizontal">
+        <RelativeLayout
+            android:id="@+id/treasureHuntOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="#EE000000">
+
 
             <ImageView
-                android:id="@+id/button2"
-                android:layout_marginTop="20dp"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:src="@drawable/temp_button"
-                android:layout_marginRight="50dp"
-                />
+                android:id="@+id/treasureHuntOverlayTreasureImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:background="#ffffff"
+                android:layout_marginTop="30dp"
+                android:shadowColor="#ffff00"
+                android:shadowDx="3"
+                android:shadowDy="3"
+                android:shadowRadius="10"
+                android:textStyle="bold"/>
 
             <ImageView
-                android:id="@+id/button3"
-                android:layout_marginTop="20dp"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:src="@drawable/temp_button" />
+                android:id="@+id/treasureHuntOverlayImage"
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="250dp"
+                android:background="#ffff00"/>
 
-        </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/treasureHuntOverlayClose"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentRight="true">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center_horizontal">
+                    <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="×"
+                    android:textSize="100sp"
+                    android:textColor="#55FFFFFF"
+                    android:layout_marginTop="-35dp"
+                        android:layout_alignParentRight="true"/>
 
-            <ImageView
-                android:id="@+id/button4"
-                android:layout_marginTop="20dp"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:src="@drawable/temp_button"
-                android:layout_marginRight="50dp"
-                />
-
-            <ImageView
-                android:id="@+id/button5"
-                android:layout_marginTop="20dp"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:src="@drawable/temp_button" />
-
-        </LinearLayout>
+            </RelativeLayout>
 
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/treasureHuntOverlayText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textSize="25sp"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="415dp"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"/>
+
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+
 
 </RelativeLayout>

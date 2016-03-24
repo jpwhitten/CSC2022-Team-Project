@@ -1,5 +1,7 @@
 package teamone.tanfieldrailway;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
@@ -13,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,7 +31,18 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OptionalDataException;
+import java.io.StreamCorruptedException;
+
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+	Activity thisActivity = this;
 
 	private Boolean isHistoryCollapsed = true;
 	private Boolean isEventsCollapsed = true;
@@ -42,6 +56,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 	RelativeLayout navKids;
 	RelativeLayout navWalkingRoutes;
 	RelativeLayout navDirections;
+
+	ImageView scanButton;
+
 
 	LinearLayout submenuHistory;
 	LinearLayout submenuEvents;
@@ -62,6 +79,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 	TreasureHuntManager treasureHuntManager;
 	ViewPager mViewPager;
 
+	ObjectInputStream is;
+
 	private static ListViewFragment specialEventsListView;
 
 	@Override
@@ -72,7 +91,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 		final HomeFragment fragment = new HomeFragment();
 		android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 		fragmentTransaction.replace(R.id.fragment_container, fragment);
-		fragmentTransaction.commit();
 
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
@@ -87,6 +105,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 		navigationView.setNavigationItemSelectedListener(this);
 
 		positionNavDrawerUnderLogo();
+
+		scanButton = (ImageView) findViewById(R.id.scanButton);
+
+		scanButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				Intent i = new Intent(thisActivity, ScanActivity.class);
+				if(treasureHuntManager != null){
+					i.putExtra("teamone.tanfieldrailway.TreasureHuntManager", treasureHuntManager);
+				}
+				startActivity(i);
+
+			}
+		});
 
 		navHome = (RelativeLayout) findViewById(R.id.nav_home);
 		navHistory = (RelativeLayout) findViewById(R.id.nav_history);
@@ -111,15 +144,36 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 		eventsIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
 		kidsIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
 
+
 		Bundle extras = getIntent().getExtras();
-			if (extras != null) {
-				if(extras.containsKey("teamone.tanfieldrailway.TreasureHuntManager")){
-					treasureHuntManager = extras.getParcelable("teamone.tanfieldrailway.TreasureHuntManager");
-					Toast.makeText(HomeActivity.this, String.valueOf(treasureHuntManager.getTreasures().get(0).isFound()) , Toast.LENGTH_SHORT).show();
+			if (extras != null && extras.containsKey("teamone.tanfieldrailway.TreasureHuntManager")) {
+				//Log.println(100, "", "Treasure Hunt Manager Created");
+				treasureHuntManager = extras.getParcelable("teamone.tanfieldrailway.TreasureHuntManager");
+				if (treasureHuntManager.treasureFound) {
+
+					setMenuColors();
+					selectMenuItem(navKids, false);
+					selectMenuItem(submenuKids, true);
+					ScrollView sv = (ScrollView) findViewById(R.id.nav_menu);
+					FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) sv.getLayoutParams();
+					layoutParams.topMargin = NAV_MARGIN;
+					sv.setLayoutParams(layoutParams);
+
+
+					Bundle bundle = new Bundle();
+					bundle.putParcelable("teamone.tanfieldrailway.TreasureHuntManager", treasureHuntManager);
+
+					TreasureFragment treasureFragment = new TreasureFragment();
+					treasureFragment.setArguments(bundle);
+					fragmentTransaction.replace(R.id.fragment_container, treasureFragment);
+					fragmentTransaction.addToBackStack(null);
+					setTitle(treasureFragment.getTitle());
 				}
+
 			} else {
 				treasureHuntManager = new TreasureHuntManager();
 			}
+
 
 		getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
 			@Override
@@ -162,6 +216,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 		}catch(VolleyError error){
 			Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
 		}
+
+		fragmentTransaction.commit();
 
 	}
 
@@ -355,7 +411,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 				selectMenuItem(navKids, false);
 				selectMenuItem(submenuKids, true);
 
+				Bundle bundle = new Bundle();
+				bundle.putParcelable("teamone.tanfieldrailway.TreasureHuntManager", treasureHuntManager);
+
 				TreasureFragment treasureFragment = new TreasureFragment();
+				treasureFragment.setArguments(bundle);
 				fragmentTransaction.replace(R.id.fragment_container, treasureFragment);
 				fragmentTransaction.addToBackStack(null);
 				fragmentTransaction.commit();
@@ -567,14 +627,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 		int id = item.getItemId();
 
 		//noinspection SimplifiableIfStatement
-		if (id == R.id.action_settings) {
-			Intent i = new Intent(this, ScanActivity.class);
-			if(treasureHuntManager != null){
-				i.putExtra("teamone.tanfieldrailway.TreasureHuntManager", treasureHuntManager);
-			}
-			startActivity(i);
-			return true;
-		}
 
 		return super.onOptionsItemSelected(item);
 	}
