@@ -119,4 +119,13 @@ public enum WalkingRoutes implements Row{
     }
 
 
+    @Override
+    public void pictureDownloaded() {
+
+    }
+
+    @Override
+    public void setPictureDownloadedCallback(PictureDownloadedCallback callback) {
+
+    }
 }

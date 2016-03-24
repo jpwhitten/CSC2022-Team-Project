@@ -15,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,8 +32,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
 import java.io.ObjectInputStream;
+import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FacebookPostFragment.OnListFragmentInteractionListener {
 
 	Activity thisActivity = this;
 
@@ -136,6 +138,23 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 		eventsIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
 		kidsIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
 
+
+		try {
+			FacebookPost.getPosts(getApplicationContext(), new Response.Listener<List<FacebookPost>>() {
+				@Override
+				public void onResponse(List<FacebookPost> response) {
+					Log.i("FB", "onResponse");
+
+					FacebookPost.ITEMS = response;
+					FacebookPostFragment fb = new FacebookPostFragment();
+					FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+					transaction.replace(R.id.fragment_container, fb);
+					transaction.commit();
+				}
+			});
+		} catch (VolleyError volleyError) {
+			volleyError.printStackTrace();
+		}
 
 		Bundle extras = getIntent().getExtras();
 			if (extras != null && extras.containsKey("teamone.tanfieldrailway.TreasureHuntManager")) {
@@ -619,6 +638,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 		return true;
 	}
 
+
+	@Override
+	public void onListFragmentInteraction(FacebookPost item) {
+
+	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -630,6 +655,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 		return super.onOptionsItemSelected(item);
 	}
+
+
 
 	@SuppressWarnings("StatementWithEmptyBody")
 	@Override

@@ -2,6 +2,7 @@ package teamone.tanfieldrailway;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,7 +26,7 @@ public class Event implements Row {
     private Drawable image;
     private String description;
     private int id = numberOfEvents++;
-
+    public PictureDownloadedCallback pictureDownloadedCallback;
     public Event(String title, String date, String description, String imageURL) {
         this.title = title;
         this.description = description;
@@ -37,9 +38,11 @@ public class Event implements Row {
         return date;
     }
 
-    public void setImage(Drawable picture){
-        this.image = picture;
+    @Override
+    public void setPictureDownloadedCallback(PictureDownloadedCallback callback) {
+        pictureDownloadedCallback = callback;
     }
+
     public String getImageURL() {
         return imageURL;
     }
@@ -64,6 +67,16 @@ public class Event implements Row {
     @Override
     public int getId() {
         return id;
+    }
+
+    public void pictureDownloaded(){
+        if(pictureDownloadedCallback != null){ //If null, picture has been downloaded before view is created
+            pictureDownloadedCallback.onPictureDownloaded(getPicture());
+        }
+    }
+
+    public void setPicture(Drawable drawable){
+        this.image = drawable;
     }
 
     @Override
@@ -106,15 +119,15 @@ public class Event implements Row {
                             {
                                 @Override public void onPostExecute(Drawable result)
                                 {
-                                    event.setImage(result);
+                                    event.setPicture(result);
+                                    event.pictureDownloaded();
                                 }
-                            }.execute(event.getImageURL());
+                            }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, event.getImageURL());
 
                             eventList = java.util.Arrays.copyOf(eventList, eventList.length +1);
                             eventList[eventList.length -1] = event;
 
                         }
-
                         callback.onResponse(eventList);
                     }
                 }, new Response.ErrorListener() {

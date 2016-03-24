@@ -18,4 +18,8 @@ public interface Row {
     Drawable getPicture();
 
     String getColor();
+
+    void pictureDownloaded();
+
+    void setPictureDownloadedCallback(PictureDownloadedCallback callback);
 }

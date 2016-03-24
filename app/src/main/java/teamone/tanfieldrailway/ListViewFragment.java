@@ -1,17 +1,14 @@
 package teamone.tanfieldrailway;
 
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -19,7 +16,7 @@ import android.widget.TextView;
 
 public class ListViewFragment extends Fragment implements FragmentTitle {
 // TODO: Rename and change types of parameters
-   private Row[] listViewItems;
+    private Row[] listViewItems;
     private ListViewCallBack callback;
     private String title;
     public ListViewFragment() {
@@ -56,25 +53,34 @@ public class ListViewFragment extends Fragment implements FragmentTitle {
             RelativeLayout item = (RelativeLayout) listView.findViewById(R.id.ListViewItem);
 
            final ImageView backgroundImage = (ImageView) item.findViewById(R.id.list_view_image);
+            row.setPictureDownloadedCallback(new PictureDownloadedCallback(){
+                @Override
+                public void onPictureDownloaded(Drawable drawable) {
+                    Log.i("img", "onPictureDownloaded");
+                    backgroundImage.setImageDrawable(drawable);
+                }
+            });
 
             new AsyncTask<Integer, Void, Drawable>() {
                 @Override
                 protected Drawable doInBackground(Integer... params) {
-
+                    Log.i("img", "doInBackground");
                     Drawable picture = row.getPicture();
                     if(picture != null){
+                        Log.i("img", "Not null");
                         return picture;
                     }else {
+                        Log.i("img", "Null");
                         return getResources().getDrawable(row.getPictureID());
                     }
                 }
 
                 @Override
                 protected void onPostExecute(Drawable drawable) {
+                    Log.i("img", "onPostExecute");
                     backgroundImage.setImageDrawable(drawable);
                 }
-
-            }.execute();
+            }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, null);
 
             TextView name = (TextView) item.findViewById(R.id.list_view_Name);
             name.setText(row.getTitle());
@@ -99,61 +105,17 @@ public class ListViewFragment extends Fragment implements FragmentTitle {
         return view;
     }
 
-
-    //https://stackoverflow.com/questions/10200256/out-of-memory-error-imageview-issue
-    private void setScaledImage(ImageView imageView, final int resId) {
-        final ImageView iv = imageView;
-        ViewTreeObserver viewTreeObserver = iv.getViewTreeObserver();
-        viewTreeObserver.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-            public boolean onPreDraw() {
-                iv.getViewTreeObserver().removeOnPreDrawListener(this);
-                int imageViewHeight = iv.getMeasuredHeight();
-                int imageViewWidth = iv.getMeasuredWidth();
-                iv.setImageBitmap(
-                        decodeSampledBitmapFromResource(getResources(),
-                                resId, imageViewWidth, imageViewHeight));
-                return true;
-            }
-        });
-    }
-
-    private static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
-                                                          int reqWidth, int reqHeight) {
-
-        // First decode with inJustDecodeBounds = true to check dimensions
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(res, resId, options);
-
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeResource(res, resId, options);
-    }
-
-    private static int calculateInSampleSize(
-            BitmapFactory.Options options, int reqWidth, int reqHeight) {
-
-        // Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-
-        if (height > reqHeight || width > reqWidth) {
-
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
-            while ((halfHeight / inSampleSize) > reqHeight
-                    && (halfWidth / inSampleSize) > reqWidth) {
-                inSampleSize *= 2;
+    /**
+     * This method ensures that background images are correctly set when coming back to the listview.
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        View view = getView();
+        if(view != null){
+            for(Row row : listViewItems){
+                row.pictureDownloaded();
             }
         }
-
-        return inSampleSize;
     }
 }

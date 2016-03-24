@@ -117,8 +117,21 @@ public enum Carriage implements Row{
         return location;
     }
 
+
+
     @Override
     public String getColor() {
         return "#AB000000";
     }
+
+    @Override
+    public void pictureDownloaded() {
+
+    }
+
+    @Override
+    public void setPictureDownloadedCallback(PictureDownloadedCallback callback) {
+
+    }
+
 }
