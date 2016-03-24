@@ -47,6 +47,16 @@ public class CarriageFragment extends Fragment {
         TextView carriageName = (TextView) view.findViewById(R.id.CarriageName);
         carriageName.setText(carriage.getTitle());
 
+        int stringID = carriage.getIntDesc();
+        TextView carriageDescription = (TextView) view.findViewById(R.id.CarriageDescription);
+        if(stringID > 0){
+            carriageDescription.setText(getString(stringID));
+        }else{
+            carriageDescription.setText("This carriage currently does not have a description. Check back soon!");
+        }
+
+
+
 
         return view;
     }
