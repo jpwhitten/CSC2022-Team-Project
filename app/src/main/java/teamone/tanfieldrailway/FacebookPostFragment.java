@@ -1,6 +1,7 @@
 package teamone.tanfieldrailway;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 /**
  * A fragment representing a list of Items.
@@ -41,16 +43,29 @@ public class FacebookPostFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_facebookpost_list, container, false);
 
+        ImageView slideshow = (ImageView) view.findViewById(R.id.slideshow);
+
+        RandomTransitionDrawable transition = new RandomTransitionDrawable( new Drawable[] {
+                getResources().getDrawable(R.drawable.slideshow1),
+                getResources().getDrawable(R.drawable.slideshow2),
+                getResources().getDrawable(R.drawable.slideshow3),
+                getResources().getDrawable(R.drawable.slideshow4),
+                getResources().getDrawable(R.drawable.slideshow5)
+        });
+        slideshow.setImageDrawable(transition);
+        slideshow.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        transition.startTransition(1500, 3000);
+
+        RecyclerView recycleView = (RecyclerView) view.findViewById(R.id.FacebookPostList);
         // Set the adapter
-        if (view instanceof RecyclerView) {
+        if (recycleView != null) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                recycleView.setLayoutManager(new LinearLayoutManager(context));
             } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                recycleView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyFacebookPostRecyclerViewAdapter(FacebookPost.ITEMS, mListener));
+            recycleView.setAdapter(new MyFacebookPostRecyclerViewAdapter(FacebookPost.ITEMS, mListener));
         }
         return view;
     }
