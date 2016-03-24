@@ -1,7 +1,6 @@
 package teamone.tanfieldrailway;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
@@ -9,13 +8,13 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,14 +30,7 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OptionalDataException;
-import java.io.StreamCorruptedException;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -236,7 +228,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 		int id = v.getId();
 
-		android.support.v4.app.FragmentTransaction fragmentTransaction =
+		final android.support.v4.app.FragmentTransaction fragmentTransaction =
 				getSupportFragmentManager().beginTransaction();
 
 		switch(id) {
@@ -294,6 +286,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 				carriagesListView.setListViewItems(Carriage.values(), new ListViewCallBack() {
 					@Override
 					public void itemClicked(int itemID) {
+						CarriageFragment.carriage = Carriage.values()[itemID];
+
+						CarriageFragment carriageFragment = new CarriageFragment();
+						FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+						transaction.replace(R.id.fragment_container, carriageFragment);
+						transaction.addToBackStack(null);
+						transaction.commit();
+						setTitle(CarriageFragment.carriage.getTitle());
 
 					}
 				});
