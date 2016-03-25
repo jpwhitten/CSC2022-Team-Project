@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class SpecialEventsFragment extends Fragment implements FragmentTitle {
-    private static Event event;
+    private Event event;
     public SpecialEventsFragment() {
         // Required empty public constructor
     }
@@ -38,5 +38,4 @@ public class SpecialEventsFragment extends Fragment implements FragmentTitle {
         // Inflate the layout for this
         return view;
     }
-
 }
