@@ -41,6 +41,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 	Activity thisActivity = this;
 
+	Animator anim = new Animator();
+
 	private Boolean isHistoryCollapsed = true;
 	private Boolean isEventsCollapsed = true;
 	private Boolean isKidsCollapsed = true;
@@ -75,8 +77,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 	DrawerLayout drawer;
 	TreasureHuntManager treasureHuntManager;
 	ViewPager mViewPager;
-
-	ObjectInputStream is;
 
 	private static ListViewFragment specialEventsListView;
 
@@ -299,7 +299,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 				shouldClose = false;
 
 				if(isHistoryCollapsed){
-					expand(submenuHistory);
+					anim.expand(submenuHistory);
 					isHistoryCollapsed = false;
 					historyIndicator.setBackgroundResource(R.drawable.nav_indicator_expand);
 					historyIndicatorAnimation = (AnimationDrawable) historyIndicator.getBackground();
@@ -319,7 +319,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 				setMenuColors();
 				selectMenuItem(navHistory, false);
 				selectMenuItem(submenuHistory, true);
-				setTitle("Timeline");
+
+				TimelineFragment timelineFragment = new TimelineFragment();
+				setTitle(timelineFragment.getTitle());
+				fragmentTransaction.replace(R.id.fragment_container, timelineFragment);
+				fragmentTransaction.addToBackStack(null);
+				fragmentTransaction.commit();
 				break;
 
 			case R.id.nav_carriages:
@@ -363,7 +368,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 				shouldClose = false;
 				if(isEventsCollapsed){
-					expand(submenuEvents);
+					anim.expand(submenuEvents);
 					isEventsCollapsed = false;
 					eventsIndicator.setBackgroundResource(R.drawable.nav_indicator_expand);
 					eventsIndicatorAnimation = (AnimationDrawable) eventsIndicator.getBackground();
@@ -425,7 +430,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 				shouldClose = false;
 				if(isKidsCollapsed){
-					expand(submenuKids);
+					anim.expand(submenuKids);
 					isKidsCollapsed = false;
 					kidsIndicator.setBackgroundResource(R.drawable.nav_indicator_expand);
 					kidsIndicatorAnimation = (AnimationDrawable) kidsIndicator.getBackground();
@@ -562,7 +567,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 	private void collapseHistory() {
 		if(!isHistoryCollapsed) {
-			collapse(submenuHistory);
+			anim.collapse(submenuHistory);
 			isHistoryCollapsed = true;
 			historyIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
 			historyIndicatorAnimation = (AnimationDrawable) historyIndicator.getBackground();
@@ -573,7 +578,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 	private void collapseEvents() {
 		if(!isEventsCollapsed) {
-			collapse(submenuEvents);
+			anim.collapse(submenuEvents);
 			isEventsCollapsed = true;
 			eventsIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
 			eventsIndicatorAnimation = (AnimationDrawable) eventsIndicator.getBackground();
@@ -583,68 +588,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
 	private void collapseKids() {
 		if(!isKidsCollapsed) {
-			collapse(submenuKids);
+			anim.collapse(submenuKids);
 			isKidsCollapsed = true;
 			kidsIndicator.setBackgroundResource(R.drawable.nav_indicator_collapse);
 			kidsIndicatorAnimation = (AnimationDrawable) kidsIndicator.getBackground();
 			kidsIndicatorAnimation.start();
 		}
-	}
-
-	public static void expand(final View v) {
-		v.measure(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-		final int targetHeight = v.getMeasuredHeight();
-
-		// Older versions of android (pre API 21) cancel animations for views with a height of 0.
-		v.getLayoutParams().height = 1;
-		v.setVisibility(View.VISIBLE);
-		Animation a = new Animation()
-		{
-			@Override
-			protected void applyTransformation(float interpolatedTime, Transformation t) {
-				v.getLayoutParams().height = interpolatedTime == 1
-						? LinearLayout.LayoutParams.WRAP_CONTENT
-						: (int)(targetHeight * interpolatedTime);
-				v.requestLayout();
-			}
-
-			@Override
-			public boolean willChangeBounds() {
-				return true;
-			}
-		};
-
-		// 1dp/ms
-		a.setDuration((int) (targetHeight / v.getContext().getResources().getDisplayMetrics().density));
-		v.startAnimation(a);
-
-		int id = v.getId();
-	}
-
-	public static void collapse(final View v) {
-		final int initialHeight = v.getMeasuredHeight();
-
-		Animation a = new Animation()
-		{
-			@Override
-			protected void applyTransformation(float interpolatedTime, Transformation t) {
-				if(interpolatedTime == 1){
-					v.setVisibility(View.GONE);
-				}else{
-					v.getLayoutParams().height = initialHeight - (int)(initialHeight * interpolatedTime);
-					v.requestLayout();
-				}
-			}
-
-			@Override
-			public boolean willChangeBounds() {
-				return true;
-			}
-		};
-
-		// 1dp/ms
-		a.setDuration((int)(initialHeight / v.getContext().getResources().getDisplayMetrics().density));
-		v.startAnimation(a);
 	}
 
 

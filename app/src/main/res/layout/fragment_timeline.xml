@@ -1,0 +1,286 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="teamone.tanfieldrailway.TimelineFragment"
+    android:layout_marginTop="55dp"
+    android:background="@color/colorBlack">
+
+    <RelativeLayout
+        android:id="@+id/timeline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="40dp">
+
+                <RelativeLayout
+                    android:layout_marginTop="40dp"
+                    android:layout_width="10dp"
+                    android:layout_height="999dp"
+                    android:background="#222222"
+                    android:layout_centerHorizontal="true"/>
+
+                <RelativeLayout
+                    android:id="@+id/timeline_date_one"
+                    android:layout_marginTop="39dp"
+                    android:layout_width="152dp"
+                    android:layout_height="27dp"
+                    android:background="#AAAAAA"
+                    android:layout_centerHorizontal="true">
+
+                    <RelativeLayout
+                        android:id="@+id/timeline_date_inner_box_one"
+                        android:layout_width="150dp"
+                        android:layout_height="25dp"
+                        android:background="#222222"
+                        android:layout_centerInParent="true">
+
+                        <TextView
+                            android:id="@+id/timeline_date_one_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Date"
+                            android:layout_centerInParent="true"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorWhite"/>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/timeline_date_two"
+                    android:layout_marginTop="239dp"
+                    android:layout_width="152dp"
+                    android:layout_height="27dp"
+                    android:background="#AAAAAA"
+                    android:layout_centerHorizontal="true">
+
+                    <RelativeLayout
+                        android:id="@+id/timeline_date_inner_box_two"
+                        android:layout_width="150dp"
+                        android:layout_height="25dp"
+                        android:background="#222222"
+                        android:layout_centerInParent="true">
+
+                        <TextView
+                            android:id="@+id/timeline_date_two_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Date"
+                            android:layout_centerInParent="true"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorWhite"/>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/timeline_date_three"
+                    android:layout_marginTop="439dp"
+                    android:layout_width="152dp"
+                    android:layout_height="27dp"
+                    android:background="#AAAAAA"
+                    android:layout_centerHorizontal="true">
+
+                    <RelativeLayout
+                        android:id="@+id/timeline_date_inner_box_three"
+                        android:layout_width="150dp"
+                        android:layout_height="25dp"
+                        android:background="#222222"
+                        android:layout_centerInParent="true">
+
+                        <TextView
+                            android:id="@+id/timeline_date_three_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Date"
+                            android:layout_centerInParent="true"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorWhite"/>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/timeline_date_four"
+                    android:layout_marginTop="639dp"
+                    android:layout_width="152dp"
+                    android:layout_height="27dp"
+                    android:background="#AAAAAA"
+                    android:layout_centerHorizontal="true">
+
+                    <RelativeLayout
+                        android:id="@+id/timeline_date_inner_box_four"
+                        android:layout_width="150dp"
+                        android:layout_height="25dp"
+                        android:background="#222222"
+                        android:layout_centerInParent="true">
+
+                        <TextView
+                            android:id="@+id/timeline_date_four_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Date"
+                            android:layout_centerInParent="true"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorWhite"/>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/timeline_date_five"
+                    android:layout_marginTop="839dp"
+                    android:layout_width="152dp"
+                    android:layout_height="27dp"
+                    android:background="#AAAAAA"
+                    android:layout_centerHorizontal="true">
+
+                    <RelativeLayout
+                        android:id="@+id/timeline_date_inner_box_five"
+                        android:layout_width="150dp"
+                        android:layout_height="25dp"
+                        android:background="#222222"
+                        android:layout_centerInParent="true">
+
+                        <TextView
+                            android:id="@+id/timeline_date_five_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Date"
+                            android:layout_centerInParent="true"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorWhite"/>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/timeline_date_six"
+                    android:layout_marginTop="1039dp"
+                    android:layout_width="152dp"
+                    android:layout_height="27dp"
+                    android:background="#AAAAAA"
+                    android:layout_centerHorizontal="true">
+
+                    <RelativeLayout
+                        android:id="@+id/timeline_date_inner_box_six"
+                        android:layout_width="150dp"
+                        android:layout_height="25dp"
+                        android:background="#222222"
+                        android:layout_centerInParent="true">
+
+                        <TextView
+                            android:id="@+id/timeline_date_six_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Date"
+                            android:layout_centerInParent="true"
+                            android:textSize="16sp"
+                            android:textColor="@color/colorWhite"/>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/timeline_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#99000000">
+
+            <ImageView
+                android:id="@+id/timeline_info_back_to_button"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="25dp"
+                android:background="@color/colorPrimary"/>
+
+            <TextView
+                android:id="@+id/timeline_info_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Date"
+                android:textSize="50sp"
+                android:textColor="@color/colorWhite"
+                android:layout_marginTop="20dp"/>
+
+            <ImageView
+                android:id="@+id/timeline_info_image"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="90dp"
+                android:scaleType="centerCrop"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/timeline_info_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:text="title"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginTop="240dp"
+                    android:layout_marginBottom="20dp"/>
+
+                <TextView
+                    android:id="@+id/timeline_info_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:text="desc"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginTop="270dp"
+                    android:layout_marginBottom="20dp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="135dp"
+                    android:layout_marginTop="300dp"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+
+</FrameLayout>

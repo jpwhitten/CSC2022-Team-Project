@@ -28,6 +28,8 @@ public class TreasureFragment extends Fragment {
     private String title = "Treasure Hunt";
     Boolean overlayTextToggle = true;
 
+    Animator anim = new Animator();
+
     TreasureHuntManager treasureHuntManager;
 
     ColorMatrix matrix = new ColorMatrix();
@@ -51,11 +53,7 @@ public class TreasureFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         treasureHuntManager = (TreasureHuntManager) getArguments().get("teamone.tanfieldrailway.TreasureHuntManager");
-
-        TranslateAnimation anim = new TranslateAnimation(0, 0, 400, 0);
-        anim.setDuration(9000);
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_treasure, container, false);
@@ -102,7 +100,7 @@ public class TreasureFragment extends Fragment {
             for(int i = 0; i < treasureImageViews.size(); i++) {
                 if(treasureImageViews.get(i).getTreasureItem().getName().equals(treasureHuntManager.foundTreasureName)){
                     overlayTreasureImage.setImageResource(treasureImageViews.get(i).getTreasureItem().getImage());
-                    overlayTreasureImage.startAnimation(anim);
+                    anim.translate(overlayTreasureImage, 0, 0, 400, 0, 9000);
                     break;
                 }
             }
