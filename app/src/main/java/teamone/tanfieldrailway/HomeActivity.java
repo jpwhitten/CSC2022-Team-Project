@@ -191,8 +191,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 			public void onBackStackChanged() {
 
 				Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-				if(f instanceof HomeFragment){
+				if(f instanceof HomeFragment || f instanceof FacebookPostFragment){
 					positionNavDrawerUnderLogo();
+					setTitle("");
 				}else{
 					findViewById(R.id.logo).setVisibility(View.INVISIBLE);
 				}
@@ -264,6 +265,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 				fragmentTransaction.addToBackStack(null);
 				fragmentTransaction.commit();
 				setTitle(homeFragment.getTitle());
+
+				FacebookPostFragment fb = new FacebookPostFragment();
+				FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+				transaction.replace(R.id.fragment_container, fb);
+				transaction.commit();
 				break;
 
 			case R.id.nav_history:

@@ -45,7 +45,7 @@ public class FacebookPostFragment extends Fragment {
 
         ImageView slideshow = (ImageView) view.findViewById(R.id.slideshow);
 
-        RandomTransitionDrawable transition = new RandomTransitionDrawable( new Drawable[] {
+        RandomTransitionDrawable transition = new RandomTransitionDrawable(new Drawable[] {
                 getResources().getDrawable(R.drawable.slideshow1),
                 getResources().getDrawable(R.drawable.slideshow2),
                 getResources().getDrawable(R.drawable.slideshow3),

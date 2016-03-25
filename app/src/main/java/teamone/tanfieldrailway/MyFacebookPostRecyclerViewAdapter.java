@@ -32,11 +32,19 @@ public class MyFacebookPostRecyclerViewAdapter extends RecyclerView.Adapter<MyFa
         holder.mItem = mValues.get(position);
         holder.facebookMessage.setText(mValues.get(position).getMessage());
         Drawable picture = mValues.get(position).getPicture();
-
+        holder.facebookImage.setImageDrawable(picture);
         if(picture != null){
-            holder.facebookImage.setImageDrawable(picture);
             holder.facebookImage.setVisibility(View.VISIBLE);
         }
+
+        holder.mItem.pictureDownloadedCallback = new PictureDownloadedCallback() {
+            @Override
+            public void onPictureDownloaded(Drawable drawable) {
+                holder.facebookImage.setImageDrawable(drawable);
+                holder.facebookImage.setVisibility(View.VISIBLE);
+            }
+        };
+
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

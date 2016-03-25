@@ -24,6 +24,7 @@ import java.util.List;
 public class FacebookPost{
     public static List<FacebookPost> ITEMS;
     private static String URL = "https://graph.facebook.com/108957235311/posts?access_token=199740776762625|1ka0xPOb3f2XjmsEefgTVSgP86A";
+    public PictureDownloadedCallback pictureDownloadedCallback;
     String message;
     Drawable picture;
     String link;
@@ -80,6 +81,11 @@ public class FacebookPost{
                                         @Override public void onPostExecute(Drawable result)
                                         {
                                             post.setPicture(result);
+
+                                            if(post.pictureDownloadedCallback != null){
+                                                post.pictureDownloadedCallback.onPictureDownloaded(result);
+                                            }
+
                                         }
                                     }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, picture);
                                 }
