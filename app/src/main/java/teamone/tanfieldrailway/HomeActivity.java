@@ -143,13 +143,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 			FacebookPost.getPosts(getApplicationContext(), new Response.Listener<List<FacebookPost>>() {
 				@Override
 				public void onResponse(List<FacebookPost> response) {
+					//TODO: Add option to attempt reload of Facebook feed on exception
 					Log.i("FB", "onResponse");
+					if (response != null) {
+						FacebookPost.ITEMS = response;
+						FacebookPostFragment fb = new FacebookPostFragment();
+						FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+						transaction.replace(R.id.fragment_container, fb);
+						transaction.commit();
+					}
 
-					FacebookPost.ITEMS = response;
-					FacebookPostFragment fb = new FacebookPostFragment();
-					FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-					transaction.replace(R.id.fragment_container, fb);
-					transaction.commit();
 				}
 			});
 		} catch (VolleyError volleyError) {
@@ -209,6 +212,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 			Event.getEvents(getApplicationContext(), new Response.Listener<Event[]>() {
 				@Override
 				public void onResponse(final Event[] response) {
+					//TODO: Add option to reload special events on error.
+					//TODO: Add information explaining that the events could not be fetched on failure.
+					if(response == null) return;
 					specialEventsListView = new ListViewFragment();
 					specialEventsListView.setListViewItems(response, new ListViewCallBack() {
 						@Override
@@ -266,10 +272,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 				fragmentTransaction.commit();
 				setTitle(homeFragment.getTitle());
 
-				FacebookPostFragment fb = new FacebookPostFragment();
-				FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-				transaction.replace(R.id.fragment_container, fb);
-				transaction.commit();
+				if(FacebookPost.ITEMS != null){
+					FacebookPostFragment fb = new FacebookPostFragment();
+					FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+					transaction.replace(R.id.fragment_container, fb);
+					transaction.commit();
+				}
+
 				break;
 
 			case R.id.nav_history:
