@@ -7,10 +7,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".HomeActivity">
 
-    <AbsoluteLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <ImageView
             android:id="@+id/slideshow"
             android:layout_width="match_parent"
@@ -18,9 +14,14 @@
             android:src="@drawable/slideshow1"
             android:scaleType="centerCrop"/>
 
-
-    </AbsoluteLayout>
-
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/FacebookPostList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="125dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            tools:listitem="@layout/fragment_facebookpost" />
 </RelativeLayout>
 
 

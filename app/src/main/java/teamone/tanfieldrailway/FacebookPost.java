@@ -104,4 +104,9 @@ public class FacebookPost{
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
     }
+
+    public interface OnListFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onListFragmentInteraction(FacebookPost item);
+    }
 }

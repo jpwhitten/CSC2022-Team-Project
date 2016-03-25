@@ -1,6 +1,7 @@
 package teamone.tanfieldrailway;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
@@ -14,6 +15,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -34,7 +37,7 @@ import com.android.volley.VolleyError;
 import java.io.ObjectInputStream;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FacebookPostFragment.OnListFragmentInteractionListener {
+public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FacebookPost.OnListFragmentInteractionListener {
 
 	Activity thisActivity = this;
 
@@ -76,6 +79,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 	ObjectInputStream is;
 
 	private static ListViewFragment specialEventsListView;
+
+	private void showFacebookFeed(){
+		RecyclerView recycleView = (RecyclerView) findViewById(R.id.FacebookPostList);
+		// Set the adapter
+		if (recycleView != null && FacebookPost.ITEMS != null) {
+			Context context = getApplicationContext();
+			recycleView.setLayoutManager(new LinearLayoutManager(context));
+			recycleView.setAdapter(new MyFacebookPostRecyclerViewAdapter(FacebookPost.ITEMS, null));
+		}
+	}
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -146,11 +160,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 					//TODO: Add option to attempt reload of Facebook feed on exception
 					Log.i("FB", "onResponse");
 					if (response != null) {
+
+						/*
 						FacebookPost.ITEMS = response;
 						FacebookPostFragment fb = new FacebookPostFragment();
 						FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 						transaction.replace(R.id.fragment_container, fb);
 						transaction.commit();
+						*/
+						FacebookPost.ITEMS = response;
+						showFacebookFeed();
 					}
 
 				}
@@ -194,7 +213,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 			public void onBackStackChanged() {
 
 				Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-				if(f instanceof HomeFragment || f instanceof FacebookPostFragment){
+				if(f instanceof HomeFragment){
+					showFacebookFeed();
 					positionNavDrawerUnderLogo();
 					setTitle("");
 				}else{
@@ -271,14 +291,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 				fragmentTransaction.addToBackStack(null);
 				fragmentTransaction.commit();
 				setTitle(homeFragment.getTitle());
-
-				if(FacebookPost.ITEMS != null){
-					FacebookPostFragment fb = new FacebookPostFragment();
-					FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-					transaction.replace(R.id.fragment_container, fb);
-					transaction.commit();
-				}
-
+				showFacebookFeed();
 				break;
 
 			case R.id.nav_history:

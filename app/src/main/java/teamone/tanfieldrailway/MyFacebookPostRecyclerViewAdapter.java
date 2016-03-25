@@ -14,9 +14,9 @@ import java.util.List;
 public class MyFacebookPostRecyclerViewAdapter extends RecyclerView.Adapter<MyFacebookPostRecyclerViewAdapter.ViewHolder> {
 
     private final List<FacebookPost> mValues;
-    private final FacebookPostFragment.OnListFragmentInteractionListener mListener;
+    private final FacebookPost.OnListFragmentInteractionListener mListener;
 
-    public MyFacebookPostRecyclerViewAdapter(List<FacebookPost> items, FacebookPostFragment.OnListFragmentInteractionListener listener) {
+    public MyFacebookPostRecyclerViewAdapter(List<FacebookPost> items, FacebookPost.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
