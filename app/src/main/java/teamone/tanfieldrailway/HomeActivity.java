@@ -199,7 +199,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 					TreasureFragment treasureFragment = new TreasureFragment();
 					treasureFragment.setArguments(bundle);
 					fragmentTransaction.replace(R.id.fragment_container, treasureFragment);
-					fragmentTransaction.addToBackStack(null);
+					//fragmentTransaction.addToBackStack(null);
 					setTitle(treasureFragment.getTitle());
 				}
 
