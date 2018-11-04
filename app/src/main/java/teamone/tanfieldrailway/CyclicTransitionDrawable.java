@@ -5,18 +5,13 @@ package teamone.tanfieldrailway;
  * Based on the TransitionDrawable code from Android Open Source Project
  * http://source.android.com/
  */
-
-//JW: Implemented random behaviour
-
         import android.graphics.Canvas;
         import android.graphics.drawable.Drawable;
         import android.graphics.drawable.LayerDrawable;
         import android.os.SystemClock;
         import android.widget.ImageView;
 
-        import java.util.Random;
-
-public class RandomTransitionDrawable extends LayerDrawable implements Drawable.Callback {
+public class CyclicTransitionDrawable extends LayerDrawable implements Drawable.Callback {
     protected enum TransitionState {
         STARTING,
         PAUSED, RUNNING
@@ -30,14 +25,10 @@ public class RandomTransitionDrawable extends LayerDrawable implements Drawable.
     protected long duration;
     protected long startTimeMillis;
     protected long pauseDuration;
-    private Random r = new Random();
-    private Boolean shouldSelect = true;
-    int nextDrawableIndex = 0;
-
 
     protected TransitionState transitionStatus;
 
-    public RandomTransitionDrawable(Drawable[] drawables) {
+    public CyclicTransitionDrawable(Drawable[] drawables) {
         super(drawables);
         this.drawables = drawables;
     }
@@ -49,23 +40,9 @@ public class RandomTransitionDrawable extends LayerDrawable implements Drawable.
         pauseDuration = pauseTimeMillis;
         startTimeMillis = SystemClock.uptimeMillis();
         transitionStatus = TransitionState.PAUSED;
-        currentDrawableIndex = getRandomInt();
+        currentDrawableIndex = 0;
 
         invalidateSelf();
-    }
-
-    public int getRandomInt() {
-        return r.nextInt(drawables.length);
-    }
-
-    public int getNextRandomInt() {
-        int i;
-        i = r.nextInt(drawables.length);
-        if(i == currentDrawableIndex) {
-            return getNextRandomInt();
-        } else {
-            return i;
-        }
     }
 
     @Override
@@ -101,10 +78,10 @@ public class RandomTransitionDrawable extends LayerDrawable implements Drawable.
 
         if (transitionStatus == TransitionState.RUNNING) {
             // Cross fade the current
-            if(shouldSelect) {
-                nextDrawableIndex = getNextRandomInt();
-                shouldSelect = false;
-            }
+            int nextDrawableIndex = 0;
+
+            if (currentDrawableIndex + 1 < drawables.length)
+                nextDrawableIndex = currentDrawableIndex + 1;
 
             Drawable currentDrawable = getDrawable(currentDrawableIndex);
             Drawable nextDrawable = getDrawable(nextDrawableIndex);
@@ -114,7 +91,7 @@ public class RandomTransitionDrawable extends LayerDrawable implements Drawable.
             currentDrawable.draw(canvas);
             currentDrawable.setAlpha(0xFF);
 
-            if (alpha > 5) {
+            if (alpha > 0) {
                 nextDrawable.setAlpha(alpha);
                 nextDrawable.draw(canvas);
                 nextDrawable.setAlpha(0xFF);
@@ -124,7 +101,6 @@ public class RandomTransitionDrawable extends LayerDrawable implements Drawable.
             if (done) {
                 currentDrawableIndex = nextDrawableIndex;
                 startTimeMillis = SystemClock.uptimeMillis();
-                shouldSelect = true;
 
                 transitionStatus = TransitionState.PAUSED;
             }
